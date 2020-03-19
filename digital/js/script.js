@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+  
     //Валидация формы
     $('#form').validate({
         rules: {
@@ -47,6 +47,8 @@ $(document).ready(function(){
         });
         return false;
       });
+
+      
       
 
 });
