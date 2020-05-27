@@ -1,7 +1,6 @@
 <?php 
 
 $name = $_POST['name'];
-$surname = $_POST['surname'];
 $phone = $_POST['phone'];
 $message = $_POST['message'];
 $email = $_POST['email'];
@@ -34,7 +33,6 @@ $mail->Subject = 'Данные';
 $mail->Body    = '
 		Пользователь оставил данные <br> 
 	Имя: ' . $name . ' <br>
-	Фамилия: ' . $surname . ' <br>
 	Номер телефона: ' . $phone . '<br>
 	Сообщение: ' . $message . '<br>
 	E-mail: ' . $email . '';
