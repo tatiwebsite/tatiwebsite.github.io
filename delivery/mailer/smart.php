@@ -19,8 +19,8 @@ $mail->Password = 'website2020';                           // Наш парол�
 $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 465;                                    // TCP port to connect to
  
-$mail->setFrom('moyadostavkavrn@mail.ru', 'Digital');   // От кого письмо 
-$mail->addAddress('candit@mail.ru');     // Add a recipient
+$mail->setFrom('moyadostavkavrn@mail.ru', 'Anti-dostavka');   // От кого письмо 
+$mail->addAddress('dostavka@aucg.ru');     // Add a recipient
 //$mail->addAddress('ellen@example.com');               // Name is optional
 //$mail->addReplyTo('info@example.com', 'Information');
 //$mail->addCC('cc@example.com');

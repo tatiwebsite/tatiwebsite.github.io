@@ -34,8 +34,8 @@ overlay[1].onclick = function (e) {
     }
 };
 $(document).ready(function() {
-$('.hamburger').click(function(event) {
-$('.hamburger, .menu').toggleClass('active');
+  $('.hamburger').click(function(event) {
+    $('.hamburger, .menu').toggleClass('active');
 });
 
 
@@ -43,20 +43,16 @@ function validateForms (form) {
   $(form).validate({
     rules: {
       name: "required",
-      email: {
-        required: false
-      },
       phone: "required"
     }
   });
-}
+};
 
 $.validator.messages.required = '';
 
-validateForms('#consultation form');
+validateForms('#form');
 
 $('input[name=phone]').mask("+7 (999) 999-99-99");
-
 
 $('form').submit(function(e) {
   e.preventDefault();
