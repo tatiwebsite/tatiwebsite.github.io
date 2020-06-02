@@ -1,80 +1,73 @@
 
 
-let openModal = document.querySelectorAll(".button"),
-modal = document.getElementById("consultation"),
-overlay = document.querySelectorAll(".overlay"),
-menu = document.querySelector('.menu'),
-menuItem = document.querySelectorAll('.menu_item'),
-hamburger = document.querySelector('.hamburger');
-
-openModal[0].onclick = function() {
-  modal.style.display = 'block';
-  overlay[0].style.display = 'block';
-};
-
-openModal[1].onclick = function() {
-  modal.style.display = 'block';
-  overlay[0].style.display = 'block';
-};
-
-openModal[2].onclick = function() {
-  modal.style.display = 'block';
-  overlay[0].style.display = 'block';
-};
-
-overlay[0].onclick = function (e) {
-  if(e.target === overlay[0]) {
-    overlay[0].style.display = '';
-  }
-};
-
-overlay[1].onclick = function (e) {
-    if(e.target === overlay[1]) {
-      overlay[1].style.display = '';
-    }
-};
 $(document).ready(function() {
+
   $('.hamburger').click(function(event) {
     $('.hamburger, .menu').toggleClass('active');
-});
-
-
-function validateForms (form) {
-  $(form).validate({
-    rules: {
-      name: "required",
-      phone: "required"
-    }
   });
-};
 
-$.validator.messages.required = '';
+  $('[data-modal=consultation]').on('click', function() {
+    $('#overlaymodal, #consultation').fadeIn('slow');
+  });
 
-validateForms('#form');
+  $("#overlaymodal").click(function(e) { 
+    if($(e.target).closest(".modal").length==0) $("#overlaymodal").css("display","none");
+  });
+
+  $("#overlaydone").click(function(e) { 
+    if($(e.target).closest(".modal-done").length==0) $("#overlaydone").css("display","none");
+  });
+
+
 
 $('input[name=phone]').mask("+7 (999) 999-99-99");
 
-$('form').submit(function(e) {
-  e.preventDefault();
+
+
+function validateForm(form){
+  $(form).validate({
+  errorClass: "invalid",
+  errorElement: "div",
+  rules: {
+  // simple rule, converted to {required:true}
+  userName: {
+  required: true,
+  minlength: 2,
+  maxlength: 15
+  },
+  userPhone: {
+  required: true,
+  minlength: 17
+  },
+  },
+  submitHandler: function (form) {
   $.ajax({
-    type: "POST",
-    url: "mailer/smart.php",
-    data: $(this).serialize()
-  }).done(function() {
-    $(this).find("input").val("");
-    $('#consultation').fadeOut();
-    $('.overlay, #thanks').fadeIn('slow');
-
-    $('form').trigger('reset');
+  type: "POST",
+  url: "mailer/smart.php",
+  data: $(form).serialize(),
+  success: function(){
+  $(form).find('input').val("");
+  $('#overlaymodal, #consultation').fadeOut();
+  $('#overlaydone, #thanks').fadeIn('slow');
+  return true;
+  },
+  error: function(jqXHR, textStatus) {
+  console.error(jqXHR + " " + textStatus);
+  }
   });
-  return false;
-});
-
-
+  }
+  });
+  $.validator.messages.required = '';
+  }
+  validateForm('.feed-form');
 
 $("a[href^='#']").click(function(){
   const _href = $(this).attr("href");
   $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
   return false;
-}); 
+  }); 
 });
+
+
+
+
