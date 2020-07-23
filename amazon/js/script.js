@@ -13,6 +13,23 @@
       menu.classList.toggle('active');
     };
 
+    //akkordion// 
+
+   
+// let plus = document.getElementsByClassName("questions__plus");
+// let i;
+
+// for (i = 0; i < plus.length; i++) {
+//   plus[i].addEventListener("click", function() {
+//     this.classList.toggle("active");
+//     let answer = this.nextElementSibling;
+//     if (answer.style.maxHeight){
+//       answer.style.maxHeight = null;
+//     } else {
+//       answer.style.maxHeight = answer.scrollHeight + "px";
+//     } 
+//   });
+// }
 
 
 
