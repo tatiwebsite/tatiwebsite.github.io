@@ -8,31 +8,28 @@
       menu.classList.toggle('active');
     };
 
-  
-    // let openClass = document.querySelectorAll('.questions__content');
-    // openClass.forEach(function(n) {
-    //   n.onclick = function(){
-    //     let answer = n.parentNode.querySelector('.questions__answer');
-    //     if (answer.style.display != 'block') {
-    //       answer.style.display = 'block';
-    //     } else {
-    //       answer.style.display = 'none';
-    //     }
-    //   };
-    // });
 
-    let acc = document.getElementsByClassName("questions__content");
-    let i;
+    let acc = document.querySelectorAll(".questions__content");
 
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        let answer = this.nextElementSibling;
-        if (answer.style.maxHeight){
-          answer.style.maxHeight = 0;
+    acc.forEach(function (item, i, arr) {
+        item.addEventListener("click", function() {
+            arr.forEach(function(q) {
+                if (q !== item) {
+                    toggleAcc(q, true);
+                }
+            });
+
+            toggleAcc(item);
+        });
+    });
+
+    function toggleAcc(tab, closeOnly) {
+        let answer = tab.nextElementSibling;
+
+        if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
+            answer.style.maxHeight = 0;
         } else {
-          answer.style.maxHeight = answer.scrollHeight + "px";
+            answer.style.maxHeight = answer.scrollHeight + "px";
         } 
-      });
     }
-   
+
