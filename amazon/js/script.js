@@ -25,11 +25,21 @@
 
     function toggleAcc(tab, closeOnly) {
         let answer = tab.nextElementSibling;
+        let plus = tab.lastElementChild;
 
         if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
             answer.style.maxHeight = 0;
+            plus.style.color = '#4285f0';
         } else {
             answer.style.maxHeight = answer.scrollHeight + "px";
+            plus.style.color = '#ea4330';
         } 
     }
 
+    // let plus = document.querySelectorAll(".questions__plus");
+
+    // for(i=0, i<arrow.length, i++) {
+    //     plus[i].addEventListener('click', function(){
+
+    // });
+    // }
