@@ -66,7 +66,7 @@ let isMobile = {
         if (isMobile.any()){
             body.classList.add('touch'); 
             
-            const link = document.querySelectorAll(".menu__item:nth-child(2n)");
+            const link = document.querySelectorAll("[data-link=sublink]");
     
             function toggleSubmenu(tab, closeOnly) {
                 const submenu = tab.querySelector('.submenu__list');
@@ -74,10 +74,10 @@ let isMobile = {
     
                 if (submenu.style.maxHeight && submenu.style.maxHeight != "0px" || closeOnly){
                     submenu.style.maxHeight = 0;
-                    arrow.style.transform = 'rotate(-45deg)';
+                    arrow.style.transform = 'rotate(45deg)';
                 } else {
                     submenu.style.maxHeight = submenu.scrollHeight + "px";
-                    arrow.style.transform = 'rotate(-225deg)';
+                    arrow.style.transform = 'rotate(225deg)';
                 } 
             } 
     
