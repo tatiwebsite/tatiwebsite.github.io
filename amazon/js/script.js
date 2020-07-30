@@ -49,6 +49,7 @@ let buttonCookie = document.querySelectorAll('.cookie__buttons > button');
         cookie.classList.add('hide');
     });
 
+
 //MENU MOBILE//
 
 let isMobile = {
@@ -60,33 +61,39 @@ let isMobile = {
 	any: function() {return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());}
 };
         let body = document.querySelector('body');
+        // let link = document.querySelectorAll(".menu__link");
         
-if (isMobile.any()){
-        body.classList.add('touch');
-
-        // let link = document.querySelectorAll('.menu__link');
-        // let i;
-
-        // for(i = 0; i < link.length; i++){
-        //     link[i].addEventListener('click', function(){
-        //         this.classList.toggle('active');
-        //         let submenu = this.nextElementSibling;
-        //         submenu.classList.add('active');
-        //     });
-        // }
-        // let arrow = document.querySelectorAll('.menu__arrow');
-        // const target = arrow.target;
-
-        // arrow.forEach(function(item, i, arrow) {
-        //     item.addEventListener('click', function(item, i){
-        //         if (target == item){
-        //             arrow.classList.toggle('active');
-        //         } else {
-        //             console.log('jjhh');
-        //         }
-        //     });
-        // });
-      
-} else {
-    body.classList.add('mouse');
-}
+        if (isMobile.any()){
+            body.classList.add('touch'); 
+            
+            const link = document.querySelectorAll(".menu__item:nth-child(2n)");
+    
+            function toggleSubmenu(tab, closeOnly) {
+                const submenu = tab.querySelector('.submenu__list');
+                const arrow = tab.querySelector('.menu__arrow');
+    
+                if (submenu.style.maxHeight && submenu.style.maxHeight != "0px" || closeOnly){
+                    submenu.style.maxHeight = 0;
+                    arrow.style.transform = 'rotate(-45deg)';
+                } else {
+                    submenu.style.maxHeight = submenu.scrollHeight + "px";
+                    arrow.style.transform = 'rotate(-225deg)';
+                } 
+            } 
+    
+            link.forEach(function (item, i, arr) {
+                item.addEventListener("click", function() {
+                    arr.forEach(function(q) {
+                        if (q !== item) {
+                            toggleSubmenu(q, true);
+                        }
+                    });
+        
+                    toggleSubmenu(item);
+                });   
+            });
+        
+            
+    } else {
+        body.classList.add('mouse');
+    }
