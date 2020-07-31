@@ -68,6 +68,18 @@ let isMobile = {
             
             const link = document.querySelectorAll("[data-link=sublink]");
     
+            link.forEach(function (item, i, arr) {
+                item.addEventListener("click", function() {
+                    arr.forEach(function(q) {
+                        if (q !== item) {
+                            toggleSubmenu(q, true);
+                        }
+                    });
+        
+                    toggleSubmenu(item);
+                });   
+            });
+            
             function toggleSubmenu(tab, closeOnly) {
                 const submenu = tab.querySelector('.submenu__list');
                 const arrow = tab.querySelector('.menu__arrow');
@@ -81,17 +93,7 @@ let isMobile = {
                 } 
             } 
     
-            link.forEach(function (item, i, arr) {
-                item.addEventListener("click", function() {
-                    arr.forEach(function(q) {
-                        if (q !== item) {
-                            toggleSubmenu(q, true);
-                        }
-                    });
-        
-                    toggleSubmenu(item);
-                });   
-            });
+            
         
             
     } else {
