@@ -99,3 +99,20 @@ let isMobile = {
     } else {
         body.classList.add('mouse');
     }
+
+    //HOME MAP// 
+
+    let showAll = document.querySelector('.map__btn');
+    let marketplaces = document.querySelector('.map__list');
+
+
+    showAll.addEventListener('click', function(){
+        if (marketplaces.style.maxHeight && marketplaces.style.maxHeight != "0px"){
+            marketplaces.style.maxHeight = 0;
+            showAll.style.backgroundColor = '#4285f0';
+        } else {
+            marketplaces.style.maxHeight = marketplaces.scrollHeight + "px";
+            showAll.style.backgroundColor = '#34a850';
+        } 
+    });
+   
