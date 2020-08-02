@@ -90,7 +90,6 @@ let isMobile = {
                 } else {
                     submenu.style.maxHeight = submenu.scrollHeight + "px";
                     arrow.style.transform = 'rotate(225deg)';
-                    link.style.marginTop = 5;
                 } 
             } 
     
