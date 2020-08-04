@@ -100,6 +100,43 @@ let isMobile = {
         body.classList.add('mouse');
     }
 
+    if (isMobile.any()){
+        body.classList.add('touch'); 
+        
+        const footerLink = document.querySelectorAll("[data-link=footer-sublink]");
+    
+        footerLink.forEach(function (item, i, arr) {
+            item.addEventListener("click", function() {
+                arr.forEach(function(q) {
+                    if (q !== item) {
+                        toggleSubmenu(q, true);
+                    }
+                });
+    
+                toggleSubmenu(item);
+            });   
+        });
+        
+        function toggleSubmenu(tab, closeOnly) {
+            const footerSubmenu = tab.querySelector('.footer__submenu-list');
+            const footerArrow = tab.querySelector('.footer__arrow');
+
+            if (footerSubmenu.style.maxHeight && footerSubmenu.style.maxHeight != "0px" || closeOnly){
+                footerSubmenu.style.maxHeight = 0;
+                footerArrow.style.transform = 'rotate(45deg)';
+            } else {
+                footerSubmenu.style.maxHeight = footerSubmenu.scrollHeight + "px";
+                footerArrow.style.transform = 'rotate(225deg)';
+            } 
+        } 
+
+        
+    
+        
+} else {
+    body.classList.add('mouse');
+}
+    
     //HOME MAP// 
 
     let showAll = document.querySelector('.map__btn');
