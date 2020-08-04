@@ -135,6 +135,10 @@ let isMobile = {
         
 } else {
     body.classList.add('mouse');
+
+    
+
+    
 }
     
     //HOME MAP// 
@@ -153,3 +157,18 @@ let isMobile = {
         } 
     });
    
+    const linkCancel = document.querySelectorAll("[data-menu=submenu]");
+    
+    linkCancel.forEach(function (item, i, arr) {
+         item.addEventListener("click", function() {
+             event.preventDefault(i);
+             });
+     });
+     
+    const footerLinkCancel = document.querySelectorAll("[data-menu=footer-submenu]");
+
+    footerLinkCancel.forEach(function (item, i, arr) {
+        item.addEventListener("click", function() {
+            event.preventDefault(i);
+            });
+    });
