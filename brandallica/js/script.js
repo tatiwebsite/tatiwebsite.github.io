@@ -27,6 +27,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     const popupCookie = document.querySelector('.cookies'),
           cookieAgree = document.querySelector('.cookies__agree'),
+          cookieNot = document.querySelector('.cookies__not'),
           ticker = document.querySelector('.footer__animate');
 
     if (shouldShowPopup()) {
@@ -35,6 +36,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
     cookieAgree.addEventListener('click', () => {
         saveToStorage();
+        popupCookie.classList.remove('cookies_active');
+    });
+
+    cookieNot.addEventListener('click', () => {
         popupCookie.classList.remove('cookies_active');
     });
     
