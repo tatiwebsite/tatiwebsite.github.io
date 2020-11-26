@@ -5,7 +5,8 @@ window.addEventListener('DOMContentLoaded', function(){
           cookiesMob = document.querySelector('.cookies-mob'),
           agreeCookieDesk = document.querySelector('.cookies-desk__agree'),
           notCookieDesk = document.querySelector('.cookies-desk__not'),
-          cookiesDesk = document.querySelector('.cookies-desk');
+          cookiesDesk = document.querySelector('.cookies-desk'),
+          ticker = document.querySelector('.footer__animate');
 
     agreeCookieMob.addEventListener('click', function(){
         cookiesMob.classList.add('cookies-mob_hide');
@@ -25,6 +26,18 @@ window.addEventListener('DOMContentLoaded', function(){
         cookiesDesk.classList.add('cookies-desk_hide');
     });
 
+//AnimateTicker
+    function animateTicker() {
+        ticker.classList.add('footer__animate_on');
+    }
+    
+    function animateTickerByScroll () {
+        if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            animateTicker();
+            window.removeEventListener('scroll', animateTickerByScroll); 
+        }
+    }
 
+    window.addEventListener('scroll', animateTickerByScroll);
 
 });
