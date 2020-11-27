@@ -50,7 +50,7 @@ function animateTicker() {
 }
 
 function animateTickerByScroll () {
-    if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 20) {
+    if(window.pageYOffset + document.documentElement.clientHeight +130 >= document.documentElement.scrollHeight) {
         animateTicker();
         window.removeEventListener('scroll', animateTickerByScroll); 
     }
