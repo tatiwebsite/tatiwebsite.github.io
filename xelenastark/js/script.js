@@ -1,39 +1,59 @@
+new Swiper('.reviews-slider', {
+    scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true,
+    },
 
-// //BURGER
-//     let burger = document.querySelector('.menu-mobile');
-//     let menu = document.querySelector('.menu');
+    grabCursor: true,
+    slideToClickedSlide: true,
+    autoHeight: true,
+    slidesPerView: 3,
+    spaceBetween: 25,
+    slidesPerGroup: 1,
+    speed: 800,
 
-//     burger.onclick = function() {
-//       burger.classList.toggle('active');
-//       menu.classList.toggle('active');
-//     };
+    breakpoints:{
+        320: {
+            slidesPerView: 1,
+        },
+        480: {
+            slidesPerView: 2,
+        },
+        992: {
+            slidesPerView: 3,
+        }
+    },
 
-// //ACCORDION//
-//     let acc = document.querySelectorAll(".questions__content");
+    preloadImages: false,
+    lazy: {
+        loadOnTransitionStart: false,
+        loadPrevNext: false,
+    },
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
+});
 
-//     acc.forEach(function (item, i, arr) {
-//         item.addEventListener("click", function() {
-//             arr.forEach(function(q) {
-//                 if (q !== item) {
-//                     toggleAcc(q, true);
-//                 }
-//             });
+//Плавный скролл//
 
-//             toggleAcc(item);
-//         });
-//     });
+$("a[href^='#']").click(function(){
+    const _href = $(this).attr("href");
+    $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+    return false;
+  }); 
 
-//     function toggleAcc(tab, closeOnly) {
-//         let answer = tab.nextElementSibling;
-//         let plus = tab.lastElementChild;
+  function validateForms (form) {
+    $(form).validate({
+      rules: {
+        name: "required",
+        email: {
+          required: true,
+          email: true
+        }
+      }
+    });
+  }
 
-//         if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
-//             answer.style.maxHeight = 0;
-//             plus.style.color = '#4285f0';
-//         } else {
-//             answer.style.maxHeight = answer.scrollHeight + "px";
-//             plus.style.color = '#ea4330';
-//         } 
-//     }
+  validateForms('form');
+  
 
     
