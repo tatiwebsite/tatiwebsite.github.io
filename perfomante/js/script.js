@@ -19,24 +19,29 @@ new Swiper('.interviews-slider', {
     },
 
     slidesPerView: 2.5,
-    spaceBetween: 20,  
+    spaceBetween: 10,  
     loop: true,
-    loopFillGroupWithBlank: true,
 
     breakpoints: {
       320: {
-        slidesPerView: 1.1,
-        spaceBetween: 10,
+        slidesPerView: 1.2,
+      },
+      400: {
+        slidesPerView: 1.4,
+      },
+      576: {
+        slidesPerView: 1.2,
       },
       768: {
-        slidesPerView: 1.1,
-        spaceBetween: 20,
+        slidesPerView: 1.4,
       },
       991: {
         slidesPerView: 1.6,
       },
       1200: {
         slidesPerView: 1.9,
+        spaceBetween: 20,
+
       },
       1500: {
         slidesPerView: 2.5,
