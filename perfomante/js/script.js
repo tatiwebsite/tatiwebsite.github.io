@@ -1,7 +1,31 @@
-'use script';
+new Swiper('.interviews-slider', {
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  spaceBetween: 20,  
+  loop: true,
+  slidesPerView: 'auto',
+  centeredSlides: true,
+
+  breakpoints: {
+    320: {
+      spaceBetween: 20,
+    },
+    768: {
+      spaceBetween: 28,
+    },
+  }
+});
+
+
 
 (function() {
-
+  'use script';
   function trackScroll() {
     var scrolled = window.pageYOffset;
     // var coords = document.documentElement.clientHeight;
@@ -66,26 +90,4 @@ overlay.addEventListener('click', (e) => {
     }
 });
 
-new Swiper('.interviews-slider', {
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    spaceBetween: 20,  
-    loop: true,
-    slidesPerView: 'auto',
-    centeredSlides: true,
 
-    breakpoints: {
-      320: {
-        spaceBetween: 20,
-      },
-      768: {
-        spaceBetween: 28,
-      },
-    }
-});
