@@ -1,5 +1,6 @@
+'use script';
+
 (function() {
-  'use strict';
 
   function trackScroll() {
     var scrolled = window.pageYOffset;
@@ -27,21 +28,43 @@
 
 //BURGER
 
-let burger = document.querySelector('.mobile-menu');
-let menu = document.querySelector('.menu');
+const burger = document.querySelector('.mobile-menu'),
+      menu = document.querySelector('.menu'),
+      popup = document.querySelector('.pop-up'),
+      overlay = document.querySelector('.overlay'),
+      openModal = document.querySelector('.book-main__btn'),
+      closeModal = document.querySelector('.pop-up__close');
 
 
 burger.addEventListener('click', function() {
-  burger.classList.toggle('active');
-  menu.classList.toggle('active');
-  document.body.classList.toggle('active');
+    burger.classList.toggle('active');
+    menu.classList.toggle('active');
+    document.body.classList.toggle('active');
 });
 
-  
-  // burger.classList.toggle('active');
-  // menu.classList.toggle('active');
-  // document.body.style.overflow = 'hidden';
+ 
+function modalOpenBtn () {
+    overlay.classList.add('show');
+    overlay.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+}      
 
+openModal.addEventListener('click', modalOpenBtn);
+
+
+function modalCloseBtn () {
+    overlay.classList.remove('show');
+    overlay.classList.add('hide');
+    document.body.style.overflow = '';
+}
+
+closeModal.addEventListener('click', modalCloseBtn);
+
+overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) {
+        modalCloseBtn();
+    }
+});
 
 new Swiper('.interviews-slider', {
     pagination: {
