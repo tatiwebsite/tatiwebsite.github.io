@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
             delay: 5000,
             disableOnInteraction: true,
         },
-        spaceBetween: 2,  
+        spaceBetween: 6,  
         loop: true,
         slidesPerView: 1.1,
         centeredSlides: true
