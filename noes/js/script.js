@@ -65,14 +65,6 @@ const mySwiper2 = new Swiper('.swiper-doc', {
   slidesPerView: 1,
 });
 
-// let swiperDocs = document.querySelector('.swiper-docs');
-// swiperDocs.addEventListener('click', (e) => {
-//   if(e.target && e.target.classList.contains('swiper-slide')){
-//     console.log('df');
-//     e.target.classList.add('sd');
-//   }
-// });
-
 const swiperPrevDoc = document.getElementById('swiperPrevDoc');
 const swiperNextDoc = document.getElementById('swiperNextDoc');
 
@@ -88,23 +80,24 @@ if(swiperPrevDoc && swiperNextDoc){
 
 window.addEventListener('DOMContentLoaded', () => {
 
-let burger = document.querySelector(".burger"),
-    menu = document.querySelector('.menu'),
-    menuClose = document.querySelector('.menu__close'),
-    body = document.querySelector('body');
+  //Burger
+  let burger = document.querySelector(".burger"),
+      menu = document.querySelector('.menu'),
+      menuClose = document.querySelector('.menu__close'),
+      body = document.querySelector('body');
 
-burger.addEventListener('click', () => {
-  menu.classList.add('active');
-  body.classList.add('locked');
-});
+  burger.addEventListener('click', () => {
+    menu.classList.add('active');
+    body.classList.add('locked');
+  });
 
-menuClose.addEventListener('click', () => {
-  menu.classList.remove('active');
-  body.classList.remove('locked');
-});
+  menuClose.addEventListener('click', () => {
+    menu.classList.remove('active');
+    body.classList.remove('locked');
+  });
 
-let acc = document.querySelectorAll(".questions__content");
-
+  //Accordeon
+  let acc = document.querySelectorAll(".questions__content");
     acc.forEach(function (item, i, arr) {
         item.addEventListener("click", function() {
             arr.forEach(function(q) {
@@ -118,20 +111,20 @@ let acc = document.querySelectorAll(".questions__content");
     });
 
     function toggleAcc(tab, closeOnly) {
-        let answer = tab.nextElementSibling;
-        let plus = tab.lastElementChild;
+      let answer = tab.nextElementSibling;
+      let plus = tab.lastElementChild;
 
-        if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
-            answer.style.maxHeight = 0;
-            plus.style.color = '#4285f0';
-        } else {
-            answer.style.maxHeight = answer.scrollHeight + "px";
-            plus.style.color = '#ea4330';
-        } 
+      if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
+          answer.style.maxHeight = 0;
+          plus.style.color = '#4285f0';
+      } else {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          plus.style.color = '#ea4330';
+      } 
     }
 
-// Tabs
-    
+  // Tabs
+      
     let tabs = document.querySelectorAll('.tabsheader__item'),
         tabsContent = document.querySelectorAll('.tabcontent'),
         tabsParent = document.querySelector('.tabsheader__items');
@@ -152,78 +145,145 @@ let acc = document.querySelectorAll(".questions__content");
       });
     }
     function hideTabContent() {
-        
-        tabsContent.forEach(item => {
-            item.classList.add('hide');
-            item.classList.remove('show', 'fade');
-        });
+      tabsContent.forEach(item => {
+          item.classList.add('hide');
+          item.classList.remove('show', 'fade');
+      });
 
-        tabs.forEach(item => {
-            item.classList.remove('tabsheader__item_active');
-        });
+      tabs.forEach(item => {
+          item.classList.remove('tabsheader__item_active');
+      });
     }
 
     function showTabContent(i = 0) {
-        tabsContent[i].classList.add('show', 'fade');
-        tabsContent[i].classList.remove('hide');
-        tabs[i].classList.add('tabsheader__item_active');
+      tabsContent[i].classList.add('show', 'fade');
+      tabsContent[i].classList.remove('hide');
+      tabs[i].classList.add('tabsheader__item_active');
     }
 
-  //Записаться на программу
-  const orderBtn = document.querySelector('.tab-program__btn'),
-        orderModal = document.querySelector('[data-modal="order"]'),
-        tabsContainer = document.querySelector('.tabs__container');
+    //Записаться на программу
+    const orderBtn = document.querySelector('.tab-program__btn'),
+          orderModal = document.querySelector('[data-modal="order"]'),
+          tabsContainer = document.querySelector('.tabs__container');
 
-  if(orderBtn){
-    orderBtn.addEventListener('click', () => {
-      let activeWay;
-      tabsParent.forEach((item) => {
-        if(item.classList.contains('active')) {
-          activeWay = item.textContent;
-        }
-      }); 
-
-    }); 
-
-    tabsContainer.addEventListener('click', (e) => {
-      if(e.target && e.target.classList.contains('tab-program__btn')){
+    if(orderBtn){
+      orderBtn.addEventListener('click', () => {
         let activeWay;
-        tabs.forEach((item) => {
-          if(item.classList.contains('tabsheader__item_active')) {
+        tabsParent.forEach((item) => {
+          if(item.classList.contains('active')) {
             activeWay = item.textContent;
           }
-        let programItem = e.target.closest('.tab-program');
-        console.log(programItem);
-        let progName = programItem.querySelector('.tab-program__title').textContent;
-        let inputWp = document.getElementById('inputWP');
-        inputWp.value = `Направление "${activeWay}". Программа ${progName}`;
-        orderModal.classList.add('opened');
-        body.classList.add('locked');
+        }); 
       }); 
-      }
+
+      tabsContainer.addEventListener('click', (e) => {
+        if(e.target && e.target.classList.contains('tab-program__btn')){
+          let activeWay;
+          tabs.forEach((item) => {
+            if(item.classList.contains('tabsheader__item_active')) {
+              activeWay = item.textContent;
+            }
+          let programItem = e.target.closest('.tab-program');
+          console.log(programItem);
+          let progName = programItem.querySelector('.tab-program__title').textContent;
+          let inputWp = document.getElementById('inputWP');
+          inputWp.value = `Направление "${activeWay}". Программа ${progName}`;
+          orderModal.classList.add('opened');
+          body.classList.add('locked');
+        }); 
+        }
+      });
+
+      document.querySelector('.order-modal__close').addEventListener('click', () => {
+        orderModal.classList.remove('opened');
+        body.classList.remove('locked');
+      });
+    }  
+
+    //Оставить заявку
+    const callBtn = document.querySelectorAll('.contact-company__btn'),
+          callModal = document.querySelector('[data-modal="call"]');
+
+    callBtn.forEach((item) => {
+      item.addEventListener('click', openCall);
     });
 
-    document.querySelector('.order-modal__close').addEventListener('click', () => {
-      orderModal.classList.remove('opened');
+    function openCall(){
+      callModal.classList.add('opened');
+      body.classList.add('locked');
+    }
+
+    callModal.querySelector('.order-modal__close').addEventListener('click', () => {
+      callModal.classList.remove('opened');
       body.classList.remove('locked');
     });
-  }  
 
-  //Оставить заявку
-  const callBtn = document.querySelectorAll('.contact-company__btn'),
-        callModal = document.querySelector('[data-modal="call"]');
-
-        callBtn.forEach((item) => {
-          item.addEventListener('click', openCall);
-        });
-
-        function openCall(){
-          callModal.classList.add('opened');
-          body.classList.add('locked');
+    //Поиск программы
+    const searchInput = document.querySelector('.search');
+    if(searchInput){
+      searchInput.addEventListener('input', function(){
+        let val = this.value.trim();
+        let activeTab = document.querySelector('.tabcontent.show'),
+            programms = activeTab.querySelectorAll('.tab-program__title');
+    
+            console.log(val);
+            console.log(programms);
+    
+        if(val != ''){
+          programms.forEach((item) => {
+            if(item.innerText.toLowerCase().search(val.toLowerCase()) == -1) {
+              console.log(item.innerText);
+              console.log(val);
+    
+              let itemParent = item.closest('.tab-program');
+              itemParent.classList.add('hide');
+            } else {
+              console.log('ff');
+              let itemParent = item.closest('.tab-program');
+              itemParent.classList.remove('hide');
+            }
+          });
         }
+        else {
+          programms.forEach((item) => {
+            item.classList.remove('hide');
+          });
+        }
+      }); 
+    }
+    
+    //Увеличиваем изображения
+    const scaleImg = document.getElementById('scale-document'),
+          docsImgWrapper = document.getElementById('swiper-docs'),
+          documentPhoto = document.querySelectorAll('.document-photo');
 
-        callModal.querySelector('.order-modal__close').addEventListener('click', () => {
-          callModal.classList.remove('opened');
-          body.classList.remove('locked');
+    if(scaleImg){
+      scaleImg.addEventListener('click', function() {
+        scaleImgF(scaleImg);
+      });
+    }
+    
+    if(docsImgWrapper){
+      docsImgWrapper.addEventListener('click', (e) => {
+        console.log('fe');
+        if(e.target && e.target.classList.contains('document__image')){
+          let scaleSlide = e.target;
+          scaleImgF(scaleSlide);
+        }
+      });
+  
+      documentPhoto.forEach(img => {
+        img.addEventListener('click', function() {
+          scaleImgF(img);
         });
+      });
+    }
+
+    function scaleImgF(img){
+      if(img.classList.contains('scale')){
+        img.classList.remove('scale');
+      } else {
+        img.classList.add('scale');
+      }
+    }
 });
