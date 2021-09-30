@@ -60,9 +60,9 @@ const mySwiper2 = new Swiper('.swiper-doc', {
   prevEl: '.swiper-button-prev',
   },
   loop: true,
-  // centeredSlides: true,
+  centeredSlides: true,
   spaceBetween: 20,  
-  slidesPerView: 2,
+  slidesPerView: 1,
 });
 
 // let swiperDocs = document.querySelector('.swiper-docs');
