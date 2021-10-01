@@ -80,6 +80,29 @@ if(swiperPrevDoc && swiperNextDoc){
 
 window.addEventListener('DOMContentLoaded', () => {
 
+let a = window.location.pathname.slice(1);
+
+let linksNav = document.querySelectorAll('.menu__link');
+linksNav.forEach(link => {
+  let linkData = link.getAttribute('data-path');
+  if(a == link.dataset.path){
+    link.classList.add('active');
+  } else {
+    link.classList.remove('active');
+  }
+});
+
+// if(item.innerText.toLowerCase().search(val.toLowerCase()) == -1) 
+//   window.addEventListener('hashchange', () => {
+//     if(!shouldShowLogin()){
+//         let id = window.location.hash;
+//         showPage(id);
+//     } else {
+//         window.location.hash = '#login-page';
+//         showPage('#login-page');
+//     }    
+// });
+
   //Burger
   let burger = document.querySelector(".burger"),
       menu = document.querySelector('.menu'),
@@ -226,19 +249,12 @@ window.addEventListener('DOMContentLoaded', () => {
         let activeTab = document.querySelector('.tabcontent.show'),
             programms = activeTab.querySelectorAll('.tab-program__title');
     
-            console.log(val);
-            console.log(programms);
-    
         if(val != ''){
           programms.forEach((item) => {
             if(item.innerText.toLowerCase().search(val.toLowerCase()) == -1) {
-              console.log(item.innerText);
-              console.log(val);
-    
               let itemParent = item.closest('.tab-program');
               itemParent.classList.add('hide');
             } else {
-              console.log('ff');
               let itemParent = item.closest('.tab-program');
               itemParent.classList.remove('hide');
             }
