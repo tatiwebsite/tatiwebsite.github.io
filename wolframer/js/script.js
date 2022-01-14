@@ -54,7 +54,15 @@ window.addEventListener('DOMContentLoaded', () => {
         closePopup = document.querySelector('.about-goals__close'),
         body = document.querySelector('body'),
         openNotice = document.querySelector('.private-col__notice'),
-        closeNotice =  document.querySelector('.notification__close');
+        closeNotice =  document.querySelector('.notification__close'),
+        controlVersionBtn = document.querySelector('.control-bar__control'),
+        routerItem = document.querySelectorAll('.router__item'),
+        routerItemClose = document.querySelector('.router__popup-cancel'),
+        searchCompanyBlock = document.querySelector('.functions-row'),
+        contactsSelectFilter = document.querySelector('.search-person__filter'),
+        statusApproval = document.querySelectorAll('.status-approval'),
+        filterButton = document.querySelector('.functions-actions__filter');
+        
   
         if(tableBlock){
           tableBlock.forEach(i => {
@@ -95,6 +103,51 @@ window.addEventListener('DOMContentLoaded', () => {
             popUp.classList.add('hide');
           });
         }
+
+        if(routerItem && routerItemClose){
+          routerItem.forEach(item => {
+            if(!item.classList.contains('router__item_disabled')){
+              item.addEventListener('click',(e) => {
+                if(e.target && e.target.classList.contains('router__plus')){
+                  let openPopup = document.querySelector('.router__overlay');
+                  openOverlay(openPopup);
+                } 
+              });
+            }
+          });
+          routerItemClose.addEventListener('click', () => {
+            let openPopup = document.querySelector('.router__overlay');
+            closeOverlay(openPopup);
+          })
+        }
+
+        if(searchCompanyBlock){
+          searchCompanyBlock.addEventListener('click', (e) => {
+            if(e.target && e.target.classList.contains('functions-actions__download')){
+              let excelBlock = searchCompanyBlock.querySelector('.download-excel');
+              openOverlay(excelBlock);
+            } else if (e.target && e.target.classList.contains('checkbox-block__cancel')) {
+              let excelBlock = searchCompanyBlock.querySelector('.download-excel');
+              closeOverlay(excelBlock);
+            }
+          })
+        }
+
+        //Фильтр открыть
+        if(filterButton){
+            filterButton.addEventListener('click', () => {
+            let filterParent = filterButton.closest('.functions-row'),
+                filterBlock = filterParent.nextElementSibling;
+            if(filterButton.classList.contains('active')){
+              filterButton.classList.remove('active');
+            closeOverlay(filterBlock);
+            } else {
+              filterButton.classList.add('active');
+              openOverlay(filterBlock);
+            }
+          });
+        }
+
          //Открыть видео
         const openVideo = document.querySelector('.promo-goals__openvideo'),
               videoBlock = document.querySelector('.promo-goals__video'),
@@ -131,11 +184,47 @@ window.addEventListener('DOMContentLoaded', () => {
           });
         }
 
+        if(controlVersionBtn) {
+          controlVersionBtn.addEventListener('click', () => {
+            let versionWindow = document.querySelector('.versions-control');
+            versionWindow.classList.toggle('opened');
+          });
+        }
+
+        if(contactsSelectFilter){
+          contactsSelectFilter.addEventListener('click', (e) => {
+            if(e.target && e.target.classList.contains('check-select')){
+              let selectedFilter = e.target,
+                  selectParent = selectedFilter.closest('.search-person__filter-select'),
+                  selectBlock = selectParent.querySelector('.search-person__filter-check');
+              selectBlock.classList.toggle('opened');
+            } 
+          })
+        }
+
+        //Стилизация статуса На согласовании
+        if(statusApproval){
+          statusApproval.forEach(item => {
+            let statusParent = item.closest('.plan-wrapper');
+            statusParent.classList.add('approval')
+          });
+        }
+
         function openModal(item){
           item.classList.add('opened');
         }
         function closeModal(item){
           item.classList.remove('opened');
+        }
+
+        function closeOverlay(item){
+          item.classList.remove('open');
+          item.classList.add('hide');
+        }
+
+        function openOverlay(item){
+          item.classList.remove('hide');
+          item.classList.add('open');
         }
 
         
@@ -150,9 +239,12 @@ window.addEventListener('DOMContentLoaded', () => {
     //   body.classList.remove('locked');
     // });
   
-    // //Accordeon
-    // let acc = document.querySelectorAll(".questions__content");
+    //Accordeon
+    // let acc = document.querySelectorAll(".plan-wrapper");
     //   acc.forEach(function (item, i, arr) {
+    //     console.log(item)
+    //     console.log(acc)
+
     //       item.addEventListener("click", function() {
     //           arr.forEach(function(q) {
     //               if (q !== item) {
@@ -166,15 +258,18 @@ window.addEventListener('DOMContentLoaded', () => {
   
     //   function toggleAcc(tab, closeOnly) {
     //     let answer = tab.nextElementSibling;
+    //     console.log(answer)
+    //     console.log(answer)
+
     //     let plus = tab.lastElementChild;
   
-    //     if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
-    //         answer.style.maxHeight = 0;
-    //         plus.style.color = '#4285f0';
-    //     } else {
-    //         answer.style.maxHeight = answer.scrollHeight + "px";
-    //         plus.style.color = '#ea4330';
-    //     } 
+    //     // if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
+    //     //     answer.style.maxHeight = 0;
+    //     //     plus.style.color = '#4285f0';
+    //     // } else {
+    //     //     answer.style.maxHeight = answer.scrollHeight + "px";
+    //     //     plus.style.color = '#ea4330';
+    //     // } 
     //   }
    
   
