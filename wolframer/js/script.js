@@ -25,64 +25,48 @@ if(swiperPrev && swiperNext){
 } 
 
 window.addEventListener('DOMContentLoaded', () => {
-
-  // let locWindow = window.location;
   
-  // let linksNav = document.querySelectorAll('.menu__link');
-  // linksNav.forEach(link => {
-  //   let linkData = link.getAttribute('data-path');
-  //   if(locWindow == link.dataset.path){
-  //     link.classList.add('active');
-  //   } else {
-  //     link.classList.remove('active');
-  //   }
-  // });
-  
-  // if(item.innerText.toLowerCase().search(val.toLowerCase()) == -1) 
-  //   window.addEventListener('hashchange', () => {
-  //     if(!shouldShowLogin()){
-  //         let id = window.location.hash;
-  //         showPage(id);
-  //     } else {
-  //         window.location.hash = '#login-page';
-  //         showPage('#login-page');
-  //     }    
-  // });
-  
-    let tableBlock = document.querySelectorAll('.table-block'),
-        slides = document.querySelectorAll('.about-slide'),
+    let slides = document.querySelectorAll('.about-slide'),
         closePopup = document.querySelector('.about-goals__close'),
-        body = document.querySelector('body'),
         openNotice = document.querySelector('.private-col__notice'),
         closeNotice =  document.querySelector('.notification__close'),
         controlVersionBtn = document.querySelector('.control-bar__control'),
         routerItem = document.querySelectorAll('.router__item'),
         routerItemClose = document.querySelector('.router__popup-cancel'),
         searchCompanyBlock = document.querySelector('.functions-row'),
-        contactsSelectFilter = document.querySelector('.search-person__filter'),
         statusApproval = document.querySelectorAll('.status-approval'),
-        filterButton = document.querySelector('.functions-actions__filter');
+        filterButton = document.querySelector('.functions-actions__filter'),
+        watchGoal = document.querySelectorAll('.risks-item__watch'),
+        openDropdown = document.querySelectorAll('.open-btn'),
+        checkSelect = document.querySelectorAll('.check-select');
         
   
-        if(tableBlock){
-          tableBlock.forEach(i => {
-            i.addEventListener('click', (e) => {
-              if(e.target && e.target.classList.contains('table-block__openmenu')){
-                let openMenu = e.target;
-                let itemParent = openMenu.closest('.table-block');
-                let dropDownMenu = itemParent.querySelector('.dropdown-menu');
-                dropDownMenu.classList.toggle('openmenu');
-              } else if(e.target && e.target.classList.contains('table-block__position')){
-                let openMenu = e.target;
-                let itemParent = openMenu.closest('.table-block');
-                let dropdownSelect = itemParent.querySelector('.dropdown-select');
-                dropdownSelect.classList.toggle('openmenu');
-                openMenu.classList.toggle('openmenu');
+        //Открытие всех выпадающих меню (dropdown-menu)
+        if(openDropdown){
+          openDropdown.forEach(item => {
+            item.addEventListener('click', () => {
+              if(item.nextElementSibling.classList.contains('dropdown-menu')){
+                item.nextElementSibling.classList.toggle('openmenu');
               }
             });
           });
         }
 
+        //Открытие всех выпадающих select (dropdown-select)
+
+        if(checkSelect){
+          checkSelect.forEach(item => {
+            item.addEventListener('click', () => {
+              if(item.nextElementSibling.classList.contains('dropdown-select')){
+                item.classList.toggle('openmenu');
+                item.nextElementSibling.classList.toggle('openmenu');
+              }
+            });
+          });
+        }
+
+       
+        
         if(slides){
           slides.forEach(slide => {
             slide.addEventListener('click', (e) => {
@@ -191,15 +175,21 @@ window.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        if(contactsSelectFilter){
-          contactsSelectFilter.addEventListener('click', (e) => {
-            if(e.target && e.target.classList.contains('check-select')){
-              let selectedFilter = e.target,
-                  selectParent = selectedFilter.closest('.search-person__filter-select'),
-                  selectBlock = selectParent.querySelector('.search-person__filter-check');
-              selectBlock.classList.toggle('opened');
-            } 
-          })
+        if(watchGoal){
+          watchGoal.forEach(item => {
+            item.addEventListener('click', () => {
+              if(!item.classList.contains('to-hide')){
+                openOverlay(item.nextElementSibling);
+                item.classList.add('to-hide');
+                item.textContent = 'Скрыть цель';
+              } else {
+                closeOverlay(item.nextElementSibling);
+                item.classList.remove('to-hide');
+                item.textContent = 'Посмотреть цель';
+              }
+              
+            })
+          });
         }
 
         //Стилизация статуса На согласовании
@@ -227,18 +217,7 @@ window.addEventListener('DOMContentLoaded', () => {
           item.classList.add('open');
         }
 
-        
 
-    // burger.addEventListener('click', () => {
-    //   menu.classList.add('active');
-    //   body.classList.add('locked');
-    // });
-  
-    // menuClose.addEventListener('click', () => {
-    //   menu.classList.remove('active');
-    //   body.classList.remove('locked');
-    // });
-  
     //Accordeon
     // let acc = document.querySelectorAll(".plan-wrapper");
     //   acc.forEach(function (item, i, arr) {
@@ -272,25 +251,7 @@ window.addEventListener('DOMContentLoaded', () => {
     //     // } 
     //   }
    
-  
-    //   //Оставить заявку
-    //   const callBtn = document.querySelectorAll('.contact-company__btn'),
-    //         callModal = document.querySelector('[data-modal="call"]');
-  
-    //   callBtn.forEach((item) => {
-    //     item.addEventListener('click', openCall);
-    //   });
-  
-    //   function openCall(){
-    //     callModal.classList.add('opened');
-    //     body.classList.add('locked');
-    //   }
-  
-    //   callModal.querySelector('.order-modal__close').addEventListener('click', () => {
-    //     callModal.classList.remove('opened');
-    //     body.classList.remove('locked');
-    //   });
-  
+
       // //Поиск программы
       // const searchInput = document.querySelector('.search');
       // if(searchInput){
@@ -318,38 +279,5 @@ window.addEventListener('DOMContentLoaded', () => {
       //   }); 
       // }
       
-      // //Увеличиваем изображения
-      // const scaleImg = document.getElementById('scale-document'),
-      //       docsImgWrapper = document.getElementById('swiper-docs'),
-      //       documentPhoto = document.querySelectorAll('.document-photo');
-  
-      // if(scaleImg){
-      //   scaleImg.addEventListener('click', function() {
-      //     scaleImgF(scaleImg);
-      //   });
-      // }
-      
-      // if(docsImgWrapper){
-      //   docsImgWrapper.addEventListener('click', (e) => {
-      //     console.log('fe');
-      //     if(e.target && e.target.classList.contains('document__image')){
-      //       let scaleSlide = e.target;
-      //       scaleImgF(scaleSlide);
-      //     }
-      //   });
-    
-      //   documentPhoto.forEach(img => {
-      //     img.addEventListener('click', function() {
-      //       scaleImgF(img);
-      //     });
-      //   });
-      // }
-  
-      // function scaleImgF(img){
-      //   if(img.classList.contains('scale')){
-      //     img.classList.remove('scale');
-      //   } else {
-      //     img.classList.add('scale');
-      //   }
-      // }
+
   });
