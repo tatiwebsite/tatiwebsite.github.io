@@ -219,37 +219,59 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     //Accordeon
-    // let acc = document.querySelectorAll(".plan-wrapper");
-    //   acc.forEach(function (item, i, arr) {
-    //     console.log(item)
-    //     console.log(acc)
+    let acc = document.querySelectorAll(".risk-factors__open");
+      acc.forEach(function (item, i, arr) {
+        item.addEventListener("click", function() {
+            arr.forEach(function(q) {
+                if (q !== item) {
+                    toggleAcc(q, true);
+                }
+            });
 
-    //       item.addEventListener("click", function() {
-    //           arr.forEach(function(q) {
-    //               if (q !== item) {
-    //                   toggleAcc(q, true);
-    //               }
-    //           });
-  
-    //           toggleAcc(item);
-    //       });
-    //   });
-  
-    //   function toggleAcc(tab, closeOnly) {
-    //     let answer = tab.nextElementSibling;
-    //     console.log(answer)
-    //     console.log(answer)
+            toggleAcc(item);
+        });
+      });
 
-    //     let plus = tab.lastElementChild;
+      let accPlans = document.querySelectorAll(".goals-plan__open");
+      accPlans.forEach(function (item, i, arr) {
+        item.addEventListener("click", function() {
+            arr.forEach(function(q) {
+                if (q !== item) {
+                    toggleAcc(q, true);
+                }
+            });
+            toggleAcc(item);
+        });
+      });
+
+      let accSubPlans = document.querySelectorAll(".sub-goals-plan__open");
+      accSubPlans.forEach(function (item, i, arr) {
+        item.addEventListener("click", function() {
+            arr.forEach(function(q) {
+                if (q !== item) {
+                    toggleAcc(q, true);
+                }
+            });
+            toggleAcc(item);
+        });
+      });
   
-    //     // if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
-    //     //     answer.style.maxHeight = 0;
-    //     //     plus.style.color = '#4285f0';
-    //     // } else {
-    //     //     answer.style.maxHeight = answer.scrollHeight + "px";
-    //     //     plus.style.color = '#ea4330';
-    //     // } 
-    //   }
+      function toggleAcc(tab, closeOnly) {
+        if(tab.closest('div').nextElementSibling){
+          let answer = tab.closest('div').nextElementSibling,
+              itemParent = tab.closest('ul');
+
+          if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
+            answer.style.maxHeight = 0;
+            tab.classList.remove('active');
+            itemParent.classList.remove('active');
+          } else {
+            answer.style.maxHeight = answer.scrollHeight + "px";
+            tab.classList.add('active');
+            itemParent.classList.add('active');
+          } 
+        }
+      }
    
 
       // //Поиск программы
