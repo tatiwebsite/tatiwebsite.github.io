@@ -38,9 +38,34 @@ window.addEventListener('DOMContentLoaded', () => {
         filterButton = document.querySelector('.functions-actions__filter'),
         watchGoal = document.querySelectorAll('.risks-item__watch'),
         openDropdown = document.querySelectorAll('.open-btn'),
-        checkSelect = document.querySelectorAll('.check-select');
+        checkSelect = document.querySelectorAll('.check-select'),
+        tagsSection = document.querySelector('.settings-tags__section');
         
   
+        //Добавление/удаление тэгов
+        if(tagsSection){
+          tagsSection.addEventListener('click',(e) => {
+            if(e.target && e.target.classList.contains('settings-tags__close')){
+              let closeItem = e.target.closest('.settings-tags__item');
+              closeItem.classList.add('hide');
+            } 
+          });
+          let input = document.querySelector('.settings-tags__add-tag');
+          input.addEventListener('focus', () => {
+            let list = document.querySelector('.settings-tags__list');
+            list.innerHTML += `<div class="settings-tags__item"><div class="settings-tags__tag"></div> 
+            <span class="settings-tags__close">&times;</span></div>`;
+          });
+          input.addEventListener('input', () => {
+            let list = document.querySelector('.settings-tags__list');
+            let lastItem = list.lastChild.querySelector('.settings-tags__tag');
+            lastItem.textContent = input.value;
+          });
+          input.addEventListener('blur', () => {
+            input.value = '';
+          });
+        }
+
         //Открытие всех выпадающих меню (dropdown-menu)
         if(openDropdown){
           openDropdown.forEach(item => {
@@ -219,54 +244,76 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     //Accordeon
-    let acc = document.querySelectorAll(".risk-factors__open");
+    let acc = document.querySelectorAll(".accordeon-item");
       acc.forEach(function (item, i, arr) {
         item.addEventListener("click", function() {
-            arr.forEach(function(q) {
-                if (q !== item) {
-                    toggleAcc(q, true);
-                }
-            });
-
+            // arr.forEach(function(q) {
+            //     if (q !== item) {
+            //         toggleAcc(q, true);
+            //     }
+            // });
             toggleAcc(item);
+            let childButton = item.firstChild;
+            childButton.classList.toggle('active');
         });
       });
 
-      let accPlans = document.querySelectorAll(".goals-plan__open");
-      accPlans.forEach(function (item, i, arr) {
-        item.addEventListener("click", function() {
-            arr.forEach(function(q) {
-                if (q !== item) {
-                    toggleAcc(q, true);
-                }
-            });
-            toggleAcc(item);
-        });
-      });
+      // let accPlans = document.querySelectorAll(".goals-plan__open");
+      // accPlans.forEach(function (item, i, arr) {
+      //   item.addEventListener("click", function() {
+      //       arr.forEach(function(q) {
+      //           if (q !== item) {
+      //               toggleAcc(q, true);
+      //           }
+      //       });
+      //       toggleAcc(item);
+      //   });
+      // });
 
-      let accSubPlans = document.querySelectorAll(".sub-goals-plan__open");
-      accSubPlans.forEach(function (item, i, arr) {
-        item.addEventListener("click", function() {
-            arr.forEach(function(q) {
-                if (q !== item) {
-                    toggleAcc(q, true);
-                }
-            });
-            toggleAcc(item);
-        });
-      });
+      // let accSubPlans = document.querySelectorAll(".sub-goals-plan__open");
+      // accSubPlans.forEach(function (item, i, arr) {
+      //   item.addEventListener("click", function() {
+      //       // arr.forEach(function(q) {
+      //       //     if (q !== item) {
+      //       //         toggleAcc(q, true);
+      //       //     }
+      //       // });
+      //       toggleAcc(item);
+      //   });
+      // });
   
       function toggleAcc(tab, closeOnly) {
         if(tab.closest('div').nextElementSibling){
           let answer = tab.closest('div').nextElementSibling,
-              itemParent = tab.closest('ul');
+              itemParent = tab.closest('ul'),
+              itemParentParent = answer.closest('ul'),
+              itemDoubleParent = itemParentParent.closest('ul');
+              tab.classList.add('active');
+              itemParent.classList.add('active');
 
-          if (answer.style.maxHeight && answer.style.maxHeight != "0px" || closeOnly){
+          if (answer.style.maxHeight && answer.style.maxHeight != "0px"){
             answer.style.maxHeight = 0;
             tab.classList.remove('active');
             itemParent.classList.remove('active');
           } else {
             answer.style.maxHeight = answer.scrollHeight + "px";
+            // let wrapperAnswers = document.querySelector('.goals-info'),
+            //     allUl = wrapperAnswers.querySelectorAll('ul');
+
+            // allUl.forEach(item => {
+            
+            // }); 
+
+            let itemParentHeight = itemParent.style.maxHeight;
+            let itemParentHeightNum = null;
+            if(itemParentHeight){
+              itemParentHeightNum = itemParentHeight.match(/\d+/g).join('');
+              let answerHeight = answer.style.maxHeight.match(/\d+/g).join('');
+              let answerHeightNum = answerHeight.match(/\d+/g).join('');
+              itemParent.style.maxHeight = itemParentHeightNum + answerHeightNum + "px";
+            }
+            
+
             tab.classList.add('active');
             itemParent.classList.add('active');
           } 
