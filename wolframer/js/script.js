@@ -259,6 +259,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if(searchInputs){
       tagsFilterSection.forEach(tag => {
         tag.addEventListener('click',(e) => {
+          let l = document.querySelector('.settings-tags-filter__list');
           if(e.target && e.target.classList.contains('settings-tags-filter__close')){
             let closeItem = e.target.closest('.settings-tags-filter__item');
             closeItem.classList.add('hide');
@@ -287,7 +288,7 @@ window.addEventListener('DOMContentLoaded', () => {
                   prompt.addEventListener('click', () => {
                     let allList = prompt.closest('.settings-tags-filter__list');
                     
-                    newItem.innerHTML = `<div class="settings-tags__tag">${prompt.textContent}</div><span class="settings-tags__close">&times;</span>`;
+                    newItem.innerHTML = `<div class="settings-tags-filter__tag">${prompt.textContent}</div><span class="settings-tags-filter__close">&times;</span>`;
                     allList.prepend(newItem);
                     activeTab.classList.remove('active');
                     input.value = '';
