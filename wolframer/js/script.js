@@ -25,21 +25,38 @@ if(swiperPrev && swiperNext){
 } 
 
 window.addEventListener('DOMContentLoaded', () => {
-  
-    let slides = document.querySelectorAll('.about-slide'),
-        closePopup = document.querySelector('.about-goals__close'),
-        openNotice = document.querySelector('.private-col__notice'),
-        closeNotice =  document.querySelector('.notification__close'),
-        controlVersionBtn = document.querySelector('.control-bar__control'),
-        routerItem = document.querySelectorAll('.router__item'),
-        routerItemClose = document.querySelector('.router__popup-cancel'),
-        searchCompanyBlock = document.querySelector('.functions-row'),
-        statusApproval = document.querySelectorAll('.status-approval'),
-        filterButton = document.querySelector('.functions-actions__filter'),
-        watchGoal = document.querySelectorAll('.risks-item__watch'),
-        openDropdown = document.querySelectorAll('.open-btn'),
-        checkSelect = document.querySelectorAll('.check-select'),
-        tagsSection = document.querySelector('.settings-tags__section');
+  //Active menu item
+  let locWindow = window.location.pathname.slice(1);
+  let linksNav = document.querySelectorAll('.menu__link');
+  linksNav.forEach(link => {
+    if(link.dataset.path){
+      if(locWindow == link.dataset.path){
+        link.closest('li').classList.add('active');
+      } else {
+        link.closest('li').classList.remove('active');
+      }
+    }
+  });
+
+  let slides = document.querySelectorAll('.about-slide'),
+    closePopup = document.querySelector('.about-goals__close'),
+    openNotice = document.querySelector('.private-col__notice'),
+    closeNotice =  document.querySelector('.notification__close'),
+    controlVersionBtn = document.querySelector('.control-bar__control'),
+    routerItem = document.querySelectorAll('.router__item'),
+    routerItemClose = document.querySelector('.router__popup-cancel'),
+    searchCompanyBlock = document.querySelector('.functions-row'),
+    statusApproval = document.querySelectorAll('.status-approval'),
+    filterButton = document.querySelector('.functions-actions__filter'),
+    watchGoal = document.querySelectorAll('.risks-item__watch'),
+    openDropdown = document.querySelectorAll('.open-btn'),
+    checkSelect = document.querySelectorAll('.check-select'),
+    tagsSection = document.querySelector('.settings-tags__section'),
+    tagsFilterSection = document.querySelectorAll('.settings-tags-filter__section'),
+    searchInputs = document.querySelectorAll('.settings-tags-filter__add-tag'),
+    promoVideo = document.querySelector('.promo-goals__overlay'),
+    openVideo = document.querySelector('.promo-goals__open'),
+    closeVideo = document.querySelector('.promo-goals__close-video');
         
   
         //Добавление/удаление тэгов
@@ -88,9 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
               }
             });
           });
-        }
-
-       
+        }  
         
         if(slides){
           slides.forEach(slide => {
@@ -158,17 +173,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
          //Открыть видео
-        const openVideo = document.querySelector('.promo-goals__openvideo'),
-              videoBlock = document.querySelector('.promo-goals__video'),
-              closeVideo = document.querySelector('.promo-goals__close-video');
 
-        if(openVideo && videoBlock){
+        if(openVideo){
           openVideo.addEventListener('click', () => {
-            openModal(videoBlock);
+            openOverlay(promoVideo);
           });
 
           closeVideo.addEventListener('click', () => {
-            closeModal(videoBlock);
+            closeOverlay(promoVideo);
           });
         }
 
@@ -243,46 +255,93 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
 
+    //Поиск тэга
+    if(searchInputs){
+      tagsFilterSection.forEach(tag => {
+        tag.addEventListener('click',(e) => {
+          if(e.target && e.target.classList.contains('settings-tags-filter__close')){
+            let closeItem = e.target.closest('.settings-tags-filter__item');
+            closeItem.classList.add('hide');
+          } 
+        });
+      });
+      
+      searchInputs.forEach(input => {
+        let newItem = document.createElement('div');
+        newItem.classList.add('settings-tags-filter__item');
+
+        input.addEventListener('input', function(){
+          let val = this.value.trim();
+          let activeTab = input.nextElementSibling,
+              programms = activeTab.querySelectorAll('.tab-program__title');
+
+      
+          if(val != ''){
+            if(activeTab.innerText.toLowerCase().search(input.value.toLowerCase()) == -1) {
+                activeTab.classList.remove('active');  
+            } else {
+              activeTab.classList.add('active');
+              let promptInputs = document.querySelectorAll('.settings-tags-filter__item-prompt.active');
+              if(promptInputs.length != 0){
+                promptInputs.forEach(prompt => {
+                  prompt.addEventListener('click', () => {
+                    let allList = prompt.closest('.settings-tags-filter__list');
+                    
+                    newItem.innerHTML = `<div class="settings-tags__tag">${prompt.textContent}</div><span class="settings-tags__close">&times;</span>`;
+                    allList.prepend(newItem);
+                    activeTab.classList.remove('active');
+                    input.value = '';
+                  });
+                });
+              }
+            }
+          }
+          else {
+            programms.forEach((item) => {
+              item.classList.remove('hide');
+            });
+          }
+        }); 
+      });
+
+      
+      
+      
+        // tagsSection.addEventListener('click',(e) => {
+        //   if(e.target && e.target.classList.contains('settings-tags-filter__close')){
+        //     let closeItem = e.target.closest('.settings-tags-filter__item');
+        //     closeItem.classList.add('hide');
+        //   } 
+        // });
+        // let input = document.querySelector('.settings-tags__add-tag');
+        // input.addEventListener('focus', () => {
+        //   let list = document.querySelector('.settings-tags__list');
+        //   list.innerHTML += `<div class="settings-tags__item"><div class="settings-tags__tag"></div> 
+        //   <span class="settings-tags__close">&times;</span></div>`;
+        // });
+        // input.addEventListener('input', () => {
+        //   let list = document.querySelector('.settings-tags__list');
+        //   let lastItem = list.lastChild.querySelector('.settings-tags__tag');
+        //   lastItem.textContent = input.value;
+        // });
+        // input.addEventListener('blur', () => {
+        //   input.value = '';
+        // });
+     
+    }
+
+
     //Accordeon
     let acc = document.querySelectorAll(".accordeon-item");
       acc.forEach(function (item, i, arr) {
         item.addEventListener("click", function() {
-            // arr.forEach(function(q) {
-            //     if (q !== item) {
-            //         toggleAcc(q, true);
-            //     }
-            // });
             toggleAcc(item);
             let childButton = item.firstChild;
             childButton.classList.toggle('active');
         });
       });
-
-      // let accPlans = document.querySelectorAll(".goals-plan__open");
-      // accPlans.forEach(function (item, i, arr) {
-      //   item.addEventListener("click", function() {
-      //       arr.forEach(function(q) {
-      //           if (q !== item) {
-      //               toggleAcc(q, true);
-      //           }
-      //       });
-      //       toggleAcc(item);
-      //   });
-      // });
-
-      // let accSubPlans = document.querySelectorAll(".sub-goals-plan__open");
-      // accSubPlans.forEach(function (item, i, arr) {
-      //   item.addEventListener("click", function() {
-      //       // arr.forEach(function(q) {
-      //       //     if (q !== item) {
-      //       //         toggleAcc(q, true);
-      //       //     }
-      //       // });
-      //       toggleAcc(item);
-      //   });
-      // });
   
-      function toggleAcc(tab, closeOnly) {
+      function toggleAcc(tab) {
         if(tab.closest('div').nextElementSibling){
           let answer = tab.closest('div').nextElementSibling,
               itemParent = tab.closest('ul'),
@@ -297,13 +356,6 @@ window.addEventListener('DOMContentLoaded', () => {
             itemParent.classList.remove('active');
           } else {
             answer.style.maxHeight = answer.scrollHeight + "px";
-            // let wrapperAnswers = document.querySelector('.goals-info'),
-            //     allUl = wrapperAnswers.querySelectorAll('ul');
-
-            // allUl.forEach(item => {
-            
-            // }); 
-
             let itemParentHeight = itemParent.style.maxHeight;
             let itemParentHeightNum = null;
             if(itemParentHeight){
@@ -312,41 +364,9 @@ window.addEventListener('DOMContentLoaded', () => {
               let answerHeightNum = answerHeight.match(/\d+/g).join('');
               itemParent.style.maxHeight = itemParentHeightNum + answerHeightNum + "px";
             }
-            
-
             tab.classList.add('active');
             itemParent.classList.add('active');
           } 
         }
       }
-   
-
-      // //Поиск программы
-      // const searchInput = document.querySelector('.search');
-      // if(searchInput){
-      //   searchInput.addEventListener('input', function(){
-      //     let val = this.value.trim();
-      //     let activeTab = document.querySelector('.tabcontent.show'),
-      //         programms = activeTab.querySelectorAll('.tab-program__title');
-      
-      //     if(val != ''){
-      //       programms.forEach((item) => {
-      //         if(item.innerText.toLowerCase().search(val.toLowerCase()) == -1) {
-      //           let itemParent = item.closest('.tab-program');
-      //           itemParent.classList.add('hide');
-      //         } else {
-      //           let itemParent = item.closest('.tab-program');
-      //           itemParent.classList.remove('hide');
-      //         }
-      //       });
-      //     }
-      //     else {
-      //       programms.forEach((item) => {
-      //         item.classList.remove('hide');
-      //       });
-      //     }
-      //   }); 
-      // }
-      
-
   });
