@@ -12,7 +12,30 @@ const mySwiper = new Swiper('.swiper', {
   spaceBetween: 20,  
   loop: true,
   slidesPerView: 3,
-  centeredSlides: true
+  centeredSlides: true,
+  breakpoints: {
+    280: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+    },
+    450: {
+      slidesPerView: 1.3,
+      spaceBetween: 20,
+    },
+    520: {
+      slidesPerView: 1.7,
+      spaceBetween: 20,
+    },
+    660: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+      centeredSlides: false,
+    },
+    991: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+  }
 });
 
 const swiperPrev = document.getElementById('swiperPrev');
@@ -31,6 +54,14 @@ if(swiperPrev && swiperNext){
 
 
 window.addEventListener('DOMContentLoaded', () => {
+
+  if(flatpickr){
+    flatpickr(document.querySelector('.popup__input_date'), {
+      dateFormat: 'F Y', 
+      "locale": "ru"
+    });
+  }
+  
 
     // let locWindow = window.location;
     
@@ -55,21 +86,21 @@ window.addEventListener('DOMContentLoaded', () => {
     //     }    
     // });
     
-    //   //Burger
-    //   let burger = document.querySelector(".burger"),
-    //       menu = document.querySelector('.menu'),
-    //       menuClose = document.querySelector('.menu__close'),
-    //       body = document.querySelector('body');
+      //Burger
+      let burger = document.querySelector('.burger'),
+          menu = document.querySelector('.menu'),
+          menuClose = document.querySelector('.menu__close'),
+          body = document.querySelector('body');
     
-    //   burger.addEventListener('click', () => {
-    //     menu.classList.add('active');
-    //     body.classList.add('locked');
-    //   });
+      burger.addEventListener('click', () => {
+        menu.classList.add('active');
+        body.classList.add('locked');
+      });
     
-    //   menuClose.addEventListener('click', () => {
-    //     menu.classList.remove('active');
-    //     body.classList.remove('locked');
-    //   });
+      menuClose.addEventListener('click', () => {
+        menu.classList.remove('active');
+        body.classList.remove('locked');
+      });
     
       //Accordeon
       let acc = document.querySelectorAll(".questions__content");
@@ -121,9 +152,47 @@ window.addEventListener('DOMContentLoaded', () => {
             }
           });
         });
+
+        //Открыть больше training
+        let programmsWrapper = document.querySelectorAll('.programms__block');
+        programmsWrapper.forEach(item => {
+          item.addEventListener('click', (e) => {
+            if(e.target && e.target.classList.contains('programms__open')){
+              let btn = e.target,
+                  list = item.querySelector('.programms__list');
+              if(!btn.classList.contains('active')){
+                btn.classList.add('active');
+                list.classList.remove('hide');
+              } else {
+                btn.classList.remove('active');
+                list.classList.add('hide');
+              }
+            }
+          });
+        });
         
     
 
+        //Увеличиваем изображения
+        const scaleWrapper = document.querySelectorAll('.scale-img-wrapper');
+    
+        if(scaleWrapper){
+          scaleWrapper.forEach(item => {
+            item.addEventListener('click', (e) => {
+              if(e.target && e.target.classList.contains('scale-img')){
+                if(e.target.classList.contains('scale')){
+                  e.target.classList.remove('scale')
+                } else {
+                  let imgIncreased = item.querySelector('.scale-img.scale');
+                    if(imgIncreased ) {
+                      imgIncreased.classList.remove('scale');
+                    }
+                  e.target.classList.add('scale');
+                }
+              }
+            });
+          })
+        }
 
 
         // //Записаться на программу
@@ -165,23 +234,29 @@ window.addEventListener('DOMContentLoaded', () => {
         //   });
         // }  
     
-        // //Оставить заявку
-        // const callBtn = document.querySelectorAll('.contact-company__btn'),
-        //       callModal = document.querySelector('[data-modal="call"]');
+        //Оставить заявку
+        const enrollPopup = document.querySelector('[data-set="enroll"]'),
+              enrollBtn = document.querySelectorAll('.to-enroll'),
+              callPopup = document.querySelectorAll('[data-set="call"]');
     
-        // callBtn.forEach((item) => {
-        //   item.addEventListener('click', openCall);
-        // });
+        enrollBtn.forEach((item) => {
+          item.addEventListener('click', openOverlay());
+        });
     
-        // function openCall(){
-        //   callModal.classList.add('opened');
-        //   body.classList.add('locked');
-        // }
+        function openOverlay(){
+          callModal.classList.add('active');
+          body.classList.add('locked');
+        }
+
+        function closeOverlay(){
+          callModal.classList.remove('active');
+          body.classList.remove('locked');
+        }
     
-        // callModal.querySelector('.order-modal__close').addEventListener('click', () => {
-        //   callModal.classList.remove('opened');
-        //   body.classList.remove('locked');
-        // });
+        callModal.querySelector('.order-modal__close').addEventListener('click', () => {
+          callModal.classList.remove('opened');
+          body.classList.remove('locked');
+        });
     
         // //Поиск программы
         // const searchInput = document.querySelector('.search');
@@ -210,33 +285,5 @@ window.addEventListener('DOMContentLoaded', () => {
         //   }); 
         // }
         
-        //Увеличиваем изображения
-        const scaleWrapper = document.querySelector('.license__docs'),
-              docsImgWrapper = document.getElementById('swiper-docs'),
-              documentPhoto = document.querySelectorAll('.document-photo');
-    
         
-        if(scaleWrapper){
-          scaleWrapper.addEventListener('click', (e) => {
-            if(e.target && e.target.classList.contains('license__img')){
-              let scaleSlide = e.target;
-              scaleImgF(scaleSlide);
-            }
-          });
-      
-          // documentPhoto.forEach(img => {
-          //   img.addEventListener('click', function() {
-          //     scaleImgF(img);
-          //   });
-          // });
-        }
-    
-        function scaleImgF(img){
-          if(img.classList.contains('scale')){
-            img.classList.remove('scale');
-          } else {
-            console.log('j')
-            img.classList.add('scale');
-          }
-        }
     });
