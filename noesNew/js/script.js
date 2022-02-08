@@ -54,6 +54,7 @@ if(swiperPrev && swiperNext){
 
 window.addEventListener('DOMContentLoaded', () => {
 
+  //Выбор даты в инпуте
   if(flatpickr){
     flatpickr(document.querySelector('.popup__input_date'), {
       dateFormat: 'F Y', 
@@ -62,6 +63,68 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
   
+  let postBtns = document.querySelectorAll('.post-data');
+  postBtns.forEach(item => {
+    item.addEventListener('click', (e) => {
+      console.log('click')
+      e.preventDefault();
+      let form = item.closest('form');
+      validateForm(form);
+    });
+  });
+
+  function validateForm(form){
+    let inputName = form.querySelector('[data-name="name"]'),
+        inputEmail = form.querySelector('[data-name="email"]'),
+        inputTel = form.querySelector('[data-name="tel"]'),
+        inputDate = form.querySelector('[data-name="date"]');
+    
+    if(inputName){
+      if(inputName.value != '' && inputName.value.length < 30){
+      checkInputClass(inputName);
+      } else {
+        inputName.classList.add('wrong');
+      }
+    }
+
+    if(inputEmail){
+      if(emailTest(inputEmail)){
+        checkInputClass(inputEmail);
+      } else {
+        inputEmail.classList.add('wrong');
+      }
+    }
+
+    if(inputTel){
+      if(inputTel.value != '' && inputTel.value.length > 6){
+        checkInputClass(inputTel);
+      } else {
+        inputTel.classList.add('wrong');
+      }
+    }
+    
+    if(inputDate){
+      if(inputDate.value != ''){
+        checkInputClass(inputDate);
+      } else {
+        inputDate.classList.add('wrong');
+      }
+    }
+    
+  }
+
+  function checkInputClass(item){
+    if(item.classList.contains('wrong')){
+      item.classList.remove('wrong');
+      item.classList.add('correct');
+    } else {
+      item.classList.add('correct');
+    }
+  }
+
+  function emailTest(input){
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value);
+  }
 
   let locWindow = window.location.pathname.slice(1);
   
@@ -88,7 +151,6 @@ window.addEventListener('DOMContentLoaded', () => {
     openOverlay(menu);
   });
 
-  console.log(menuClose)
   menuClose.addEventListener('click', () => {
     console.log('click')
     closeOverlay(menu);
@@ -184,89 +246,52 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-
-        // var input = document.querySelector("#phone");
-        // intlTelInput(input, {
-        //   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.15/js/intlTelInput.min.js",
-        //   customPlaceholder : function ( selectedCountryPlaceholder ,  selectedCountryData )  { 
-        //     return  "eg"  +  selectedCountryPlaceholder ; 
-        //   }
-        // });
-
-        // //Записаться на программу
-        // const orderBtn = document.querySelector('.tab-program__btn'),
-        //       orderModal = document.querySelector('[data-modal="order"]'),
-        //       tabsContainer = document.querySelector('.tabs__container');
-    
-        // if(orderBtn){
-        //   orderBtn.addEventListener('click', () => {
-        //     let activeWay;
-        //     tabsParent.forEach((item) => {
-        //       if(item.classList.contains('active')) {
-        //         activeWay = item.textContent;
-        //       }
-        //     }); 
-        //   }); 
-    
-        //   tabsContainer.addEventListener('click', (e) => {
-        //     if(e.target && e.target.classList.contains('tab-program__btn')){
-        //       let activeWay;
-        //       tabs.forEach((item) => {
-        //         if(item.classList.contains('tabsheader__item_active')) {
-        //           activeWay = item.textContent;
-        //         }
-        //       let programItem = e.target.closest('.tab-program');
-        //       console.log(programItem);
-        //       let progName = programItem.querySelector('.tab-program__title').textContent;
-        //       let inputWp = document.getElementById('inputWP');
-        //       inputWp.value = `Направление "${activeWay}". Программа ${progName}`;
-        //       orderModal.classList.add('opened');
-        //       body.classList.add('locked');
-        //     }); 
-        //     }
-        //   });
-    
-        //   document.querySelector('.order-modal__close').addEventListener('click', () => {
-        //     orderModal.classList.remove('opened');
-        //     body.classList.remove('locked');
-        //   });
-        // }  
-    
-        //Оставить заявку
-        const enrollPopup = document.querySelector('[data-set="enroll-overlay"]'),
-              enrollBtn = document.querySelectorAll('.to-enroll'),
-              callBtn = document.querySelectorAll('.to-call'),
-              callPopup = document.querySelector('[data-set="call-overlay"]'),
-              closePopup = document.querySelectorAll('.popup__close');
-    
-        enrollBtn.forEach((item) => {
-          item.addEventListener('click', () => {
-            openOverlay(enrollPopup);
-          })
-        });
-
-        callBtn.forEach((item) => {
-          item.addEventListener('click', (e) => {
-            e.preventDefault();
-            openOverlay(callPopup);
-          })
-        });
-
-        closePopup.forEach((item) => {
-          item.addEventListener('click', () => {
-            let thisPopup = item.closest('.overlay-popup');
-            closeOverlay(thisPopup);
-          })
-        });
-    
-        function openOverlay(item){
-          item.classList.add('active');
-          body.classList.add('locked');
-        }
-
-        function closeOverlay(item){
-          item.classList.remove('active');
-          body.classList.remove('locked');
-        }
-        
+  var inputs = document.querySelectorAll(".iti-flag");
+  inputs.forEach(input => {
+    window.intlTelInput(input, {
+      utilsScript: "js/utils.js",
+      customPlaceholder : function ( selectedCountryPlaceholder ,  selectedCountryData )  { 
+        return  "eg"  +  selectedCountryPlaceholder ; 
+      }
     });
+  });
+ 
+
+  //Оставить заявку
+  const enrollPopup = document.querySelector('[data-set="enroll-overlay"]'),
+        enrollBtn = document.querySelectorAll('.to-enroll'),
+        callBtn = document.querySelectorAll('.to-call'),
+        callPopup = document.querySelector('[data-set="call-overlay"]'),
+        closePopup = document.querySelectorAll('.popup__close');
+
+  enrollBtn.forEach((item) => {
+    item.addEventListener('click', () => {
+      openOverlay(enrollPopup);
+    })
+  });
+
+  callBtn.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      openOverlay(callPopup);
+    })
+  });
+
+  closePopup.forEach((item) => {
+    item.addEventListener('click', () => {
+      let thisPopup = item.closest('.overlay-popup');
+      closeOverlay(thisPopup);
+    })
+  });
+
+  function openOverlay(item){
+    item.classList.add('active');
+    body.classList.add('locked');
+  }
+
+  function closeOverlay(item){
+    item.classList.remove('active');
+    body.classList.remove('locked');
+  }
+        
+});
