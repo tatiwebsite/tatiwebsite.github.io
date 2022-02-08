@@ -57,7 +57,8 @@ window.addEventListener('DOMContentLoaded', () => {
   if(flatpickr){
     flatpickr(document.querySelector('.popup__input_date'), {
       dateFormat: 'F Y', 
-      "locale": "ru"
+      "locale": "ru",
+      disableMobile: "true"
     });
   }
   
@@ -82,10 +83,14 @@ window.addEventListener('DOMContentLoaded', () => {
       body = document.querySelector('body');
 
   burger.addEventListener('click', () => {
+    console.log(menuClose)
+
     openOverlay(menu);
   });
 
+  console.log(menuClose)
   menuClose.addEventListener('click', () => {
+    console.log('click')
     closeOverlay(menu);
   });
 
