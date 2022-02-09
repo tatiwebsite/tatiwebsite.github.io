@@ -146,13 +146,10 @@ window.addEventListener('DOMContentLoaded', () => {
       body = document.querySelector('body');
 
   burger.addEventListener('click', () => {
-    console.log(menuClose)
-
     openOverlay(menu);
   });
 
   menuClose.addEventListener('click', () => {
-    console.log('click')
     closeOverlay(menu);
   });
 
