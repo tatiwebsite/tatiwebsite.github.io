@@ -204,40 +204,16 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  //Открыть больше training
-  let programmsWrapper = document.querySelectorAll('.programms__block');
-  programmsWrapper.forEach(item => {
-    item.addEventListener('click', (e) => {
-      if(e.target && e.target.classList.contains('programms__open')){
-        let btn = e.target,
-            list = item.querySelector('.programms__list');
-        if(!btn.classList.contains('active')){
-          btn.classList.add('active');
-          list.classList.remove('hide');
-        } else {
-          btn.classList.remove('active');
-          list.classList.add('hide');
-        }
-      }
-    });
-  });
-
   //Увеличиваем изображения
   const scaleWrapper = document.querySelectorAll('.scale-img-wrapper');
 
   if(scaleWrapper){
     scaleWrapper.forEach(item => {
       item.addEventListener('click', (e) => {
-        if(e.target && e.target.classList.contains('scale-img')){
-          if(e.target.classList.contains('scale')){
-            e.target.classList.remove('scale')
-          } else {
-            let imgIncreased = item.querySelector('.scale-img.scale');
-              if(imgIncreased ) {
-                imgIncreased.classList.remove('scale');
-              }
-            e.target.classList.add('scale');
-          }
+        if(e.target && e.target.classList.contains('for-scale-img')){
+          e.target.nextElementSibling.classList.add('active')
+        } else if(e.target && e.target.classList.contains('scale-img')){
+          e.target.closest('div').classList.remove('active')
         }
       });
     })
