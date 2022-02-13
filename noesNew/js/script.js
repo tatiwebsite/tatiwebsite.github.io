@@ -212,7 +212,7 @@ window.addEventListener('DOMContentLoaded', () => {
       item.addEventListener('click', (e) => {
         if(e.target && e.target.classList.contains('for-scale-img')){
           e.target.nextElementSibling.classList.add('active')
-        } else if(e.target && e.target.classList.contains('scale-img')){
+        } else if(e.target && e.target.classList.contains('scale-img') || e.target.classList.contains('overlay-popup-scale')){
           e.target.closest('div').classList.remove('active')
         }
       });
