@@ -1,182 +1,138 @@
 
-const cookieStorage = {
-    getItem: (key) => {
-        const cookies = document.cookie
-                        .split(';')
-                        .map(cookie => cookie.split('='))
-                        .reduce((acc, [key, value]) => ({...acc, [key.trim()]: value}), {});
-        return cookies[key];
-    },
-    setItem: function(key, value) {
-        document.cookie = `${key}=${value}; expires=Sun, 16 Jul 3567 06:23:41 GMT`;
-    }
-};
 
 
-const storageType = cookieStorage;
-const consentPropertyType = 'site_consent';
-
-const shouldShowPopup = () => !storageType.getItem(consentPropertyType);
-const saveToStorage = () => storageType.setItem(consentPropertyType, true);
-
-const consentOpenType = 'welcome_open';
-
-const shouldShowWelcome = () => !storageType.getItem(consentOpenType);
-const saveToStorageWelcome = () => storageType.setItem(consentOpenType, true);
 
 window.addEventListener('DOMContentLoaded', function(){
 
-//Cookies
+  const animItems = document.querySelectorAll('._anim-items');
+  
+  if(animItems.length > 0){
+    window.addEventListener('scroll', animOnScroll);     
 
-    const popupCookie = document.querySelector('.cookies'),
-          cookieAgree = document.querySelector('.cookies__agree'),
-          cookieNot = document.querySelector('.cookies__not'),
-          welcome = document.querySelector('.welcome-screen'),
-          ticker = document.querySelector('.footer__animate'),
-          outlineBrand = document.querySelector('.target-audience__svg'),
-          outlineTeam = document.querySelector('.our-clients__svg'),
-          outlineAbout = document.querySelector('.about-us'),
-          outlinePromo = document.querySelector('.promo'),
-          promoAnimate = document.querySelectorAll('.promo__animate'),
-          promoAnimateDelay = document.querySelectorAll('.promo__animatedelay'),
-          youtubeShadow = document.querySelector('.Layer1'),
-          svgBlock = document.querySelector('.our-team__image');     
-          
-
-          if(welcome){
-            welcome.style.height = window.innerHeight + "px";
-
-            window.addEventListener("orientationchange", e => {
-                if (document.body.offsetWidth < 768) welcome.style.height = window.innerHeight + "px";
-            }, false);
-            
-            window.addEventListener("resize", e => {
-                    if (document.body.offsetWidth < 768) welcome.style.height = window.innerHeight + "px";
-            }, false);
-          }
-          
-
-          
+    function animOnScroll(params){
+        for(let index = 0; index < animItems.length; index++) {
+            const animItem = animItems[index];
+            const animItemHeight = animItem.offsetHeight;
+            const animItemOffset = offset(animItem).top;
+            const animStart = 4;
     
-//WelcomeSave
-    if (shouldShowWelcome()) {
-        welcome.classList.add('welcome-screen_open');
-        promoAnimate.forEach((item, i) => {
-            promoAnimate[i].style.display = 'none';
-        });
-        promoAnimateDelay.forEach((item, i) => {
-            promoAnimateDelay[i].style.display = 'inline-block';
-        });
-    }
-    if(welcome) {
-        if (welcome.classList.contains('welcome-screen_open')) {
-            saveToStorageWelcome();
-        }
-    }
+            let animItemPoint = window.innerHeight - animItemHeight / animStart;
     
-
-   
-
-
-//CookieSave
-    if (shouldShowPopup()) {
-        popupCookie.classList.add('cookies_active');
-    }
-
-    cookieAgree.addEventListener('click', () => {
-        saveToStorage();
-        popupCookie.classList.remove('cookies_active');
-    });
-
-    cookieNot.addEventListener('click', () => {
-        popupCookie.classList.remove('cookies_active');
-    });
-    
-
-
-if(ticker){
-    window.addEventListener('scroll', tickerAnimate);
-    function tickerAnimate(){
-        const tickerHeight = ticker.offsetHeight;
-        const tickerTop = ticker.getBoundingClientRect().top;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const tickerOffset = tickerTop + scrollTop;
-        const tickerAnimStart = 5;
-
-        let tickerAnimPoint = window.innerHeight - tickerHeight / tickerAnimStart;
-
-        if(tickerHeight > window.innerHeight) {
-            tickerAnimPoint = window.innerHeight - window.innerHeight / tickerAnimStart;
-        }
-
-        if((pageYOffset > tickerOffset - tickerAnimPoint) && pageYOffset < (tickerOffset + tickerHeight)){
-            ticker.classList.add('footer__animate_on');
-        } 
-
-    }
-}
-
-//Animate Outline
-
-if(outlineBrand) {
-    function animateOutlineBrand() {
-        outlineBrand.classList.add('target-audience__svg_animate');
-    }
-    
-    function animateOutlineBrandByScroll () {
-        const topOutlineBrand = outlinePromo.offsetHeight;
-    
-        if(window.pageYOffset + 180 >= topOutlineBrand) {
-            animateOutlineBrand();
-            window.removeEventListener('scroll', animateOutlineBrandByScroll); 
-        }
-    }
-    window.addEventListener('scroll', animateOutlineBrandByScroll);
-}
-
-if (outlineTeam) {
-    function animateOutlineTeam() {
-        outlineTeam.classList.add('our-clients__svg_animate');
-    }
-    
-    function animateOutlineTeamByScroll () {
-        const topOutlineTeam = outlineAbout.offsetHeight;
-        if(window.pageYOffset - 180 >= topOutlineTeam) {
-            animateOutlineTeam();
-            window.removeEventListener('scroll', animateOutlineTeamByScroll); 
-        }
-    }
-    window.addEventListener('scroll', animateOutlineTeamByScroll);
-    
-}
-
-//Animate Shadow
-
-if(youtubeShadow){
-        window.addEventListener('scroll', animShadow);
-        function animShadow(){
-            const shadowHeight = svgBlock.offsetHeight;
-            const shadowTop = svgBlock.getBoundingClientRect().top;
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const shadowOffset = shadowTop + scrollTop;
-            const shadowAnimStart = 1;
-    
-            let shadowAnimPoint = window.innerHeight - shadowHeight / shadowAnimStart;
-    
-            if(shadowHeight > window.innerHeight) {
-                shadowAnimPoint = window.innerHeight - window.innerHeight / shadowAnimStart;
+            if(animItemHeight > window.innerHeight) {
+                animItemPoint = window.innerHeight - window.innerHeight / animStart;
             }
     
-            if((pageYOffset > shadowOffset - shadowAnimPoint) && pageYOffset < (shadowOffset + shadowHeight)){
-                youtubeShadow.classList.add('Layer1_animate');
-            } else {
-                youtubeShadow.classList.remove('Layer1_animate');
-            }
-
+            if((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)){
+                animItem.classList.add('_active');
+            } 
         }
     }
-    
+
+    function offset(el) {
+        const rect = el.getBoundingClientRect(),
+            scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return {
+            top: rect.top + scrollTop,
+            left: rect.left + scrollLeft
+        }
+    }
+    animOnScroll();
+}
 
 
 });
+
+
+
+$(document).ready(function() {
+
+    $('.menu-mobile').click(function(event) {
+      $('.menu-mobile, .menu').addClass('active');
+    });
+    $('.menu__close').click(function(event) {
+      $('.menu-mobile, .menu').removeClass('active');
+    });
+  
+    $('[data-modal=openmodal]').on('click', function() {
+      $('#overlaymodal').addClass('show');
+    });
+  
+    $('.pop-up__close').on('click', function() {
+      $('#overlaymodal').removeClass('show');
+    });
+
+    $("#overlaymodal").click(function(e) { 
+      if($(e.target).closest(".pop-up").length==0) $("#overlaymodal").removeClass('show');
+    });
+
+    $('.thanks__close').on('click', function() {
+      $('#overlaydone').removeClass('show');
+    });
+
+    $("#overlaydone").click(function(e) { 
+      if($(e.target).closest(".thanks").length==0) $("#overlaydone").removeClass('show');
+    });
+  
+  
+  function validateForm(form){
+    $(form).validate({
+        errorClass: "invalid",
+        errorElement: "div",
+        rules: {
+        // simple rule, converted to {required:true}
+          userName: {
+            required: true,
+            minlength: 1,
+            maxlength: 15
+          },
+          userPhone: {
+            required: true,
+            minlength: 6,
+            maxlength: 20
+          },
+          userEmail: {
+            required: true,
+          }
+        },
+        messages: {
+          userName: {
+            required: ''
+          },
+          userEmail: {
+            email: "Введите корректный email для получения доступа"
+          },
+          userPhone: {
+            minlength: "Введите корректный номер для связи с вами"
+          }
+        },
+        
+        submitHandler: function (form) {
+          $.ajax({
+            type: "POST",
+            url: "telegram.php",
+            data: $(form).serialize(),
+            success: function(){
+              $(form).find('input').val("");
+              $('#overlaymodal').fadeOut();
+              $('#overlaydone, #thanks').addClass('show');
+              return true;
+              },
+            error: function(jqXHR, textStatus) {
+            console.error(jqXHR + " " + textStatus);
+            }
+        });
+      }
+    });
+    $.validator.messages.required = '';
+    }
+    validateForm('.pop-up__form');
+  
+
+      $("a[href^='#']").click(function(){
+        const _href = $(this).attr("href");
+        $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+        return false;
+        }); 
+  });
 
