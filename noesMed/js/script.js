@@ -133,20 +133,6 @@ window.addEventListener('DOMContentLoaded', () => {
       link.classList.remove('active');
     }
   });
-  
-  //Выбор специализации
-  let checkProgram = document.querySelectorAll('.personal-programs__check-btn');
-  checkProgram.forEach(item => {
-    item.addEventListener('click', () => {
-      let nextSelect = item.nextElementSibling;
-      if(nextSelect.classList.contains('personal-programs__openmenu_active')){
-        nextSelect.classList.remove('personal-programs__openmenu_active');
-      } else if(nextSelect.classList.contains('personal-programs__openmenu')){
-        nextSelect.classList.add('personal-programs__openmenu_active');
-      }
-    });
-  });
-  
     
   //Burger
   let burger = document.querySelector('.burger'),
@@ -189,45 +175,6 @@ window.addEventListener('DOMContentLoaded', () => {
     } 
   }
   
-  //Открыть больше в admission
-  let showMore = document.querySelectorAll(".show-more");
-
-  showMore.forEach(btn => {
-    btn.addEventListener('click', () => {
-      let hideAnswer = btn.nextElementSibling;
-      let admissionBlocks = document.querySelectorAll('.admission__inner');
-
-      if(!btn.classList.contains('active') && hideAnswer.classList.contains('hide')){
-        btn.classList.add('active');
-        hideAnswer.style.maxHeight = hideAnswer.scrollHeight + "px";
-        admissionBlocks.forEach(item => {
-          item.classList.add('short');
-        });
-      } else if (btn.classList.contains('active') && hideAnswer){
-        admissionBlocks.forEach(item => {
-          setTimeout(() => item.classList.remove('short'), 298);
-        });
-        hideAnswer.style.maxHeight = '0';
-        btn.classList.remove('active');
-      }
-    });
-  });
-
-  //Увеличиваем изображения
-  const scaleWrapper = document.querySelectorAll('.scale-img-wrapper');
-
-  if(scaleWrapper){
-    scaleWrapper.forEach(item => {
-      item.addEventListener('click', (e) => {
-        if(e.target && e.target.classList.contains('for-scale-img')){
-          e.target.nextElementSibling.classList.add('active')
-        } else if(e.target && e.target.classList.contains('scale-img') || e.target.classList.contains('overlay-popup-scale')){
-          e.target.closest('div').classList.remove('active')
-        }
-      });
-    })
-  }
-
   var inputs = document.querySelectorAll(".iti-flag");
   inputs.forEach(input => {
     window.intlTelInput(input, {
@@ -252,51 +199,42 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   //Выбрать специализации
-  const checkedPrograms = document.querySelectorAll('.personal-programs-checked');
-  checkedPrograms.forEach(item => {
-    let activeCheck = 0;
-
-    if(!item.classList.contains('active')){
-      activeCheck++;
-    }
-    if(activeCheck > 0){
-
-      item.addEventListener('change', () => {
-        item.classList.toggle('active');
-        if(item.classList.contains('active')){
-          let programName = item.closest('label').textContent.trim();
-          let allProgrammsTitle = document.querySelectorAll('.checked-programs__title');
-          allProgrammsTitle.forEach(item => {
-            if(item.textContent.toLowerCase() == programName.toLowerCase()){
-              item.closest('.checked-programs').classList.add('active');
-              activeCheck++;
-            }
-          });
-          checkedPrograms.forEach(item => {
-            if(!item.classList.contains('active')){
-              let programName = item.closest('label').textContent.trim();
-              let allProgrammsTitle = document.querySelectorAll('.checked-programs__title');
-              allProgrammsTitle.forEach(item => {
-                if(item.textContent.toLowerCase() == programName.toLowerCase()){
-                  item.closest('.checked-programs').classList.remove('active');
-                  activeCheck--;
-                }
-              });
-            } 
-          });
-        } else {
-          let programName = item.closest('label').textContent.trim();
-          let allProgrammsTitle = document.querySelectorAll('.checked-programs__title');
-          allProgrammsTitle.forEach(item => {
-            if(item.textContent.toLowerCase() == programName.toLowerCase()){
-              item.closest('.checked-programs').classList.remove('active');
-            }
-          });
-        }
-      });
-    } 
     
+  //Выбор специализации
+  let checkProgram = document.querySelectorAll('.personal-programs__check-btn');
+  checkProgram.forEach(item => {
+    item.addEventListener('click', () => {
+      let nextSelect = item.nextElementSibling;
+      if(nextSelect.classList.contains('personal-programs__openmenu_active')){
+        nextSelect.classList.remove('personal-programs__openmenu_active');
+      } else if(nextSelect.classList.contains('personal-programs__openmenu')){
+        nextSelect.classList.add('personal-programs__openmenu_active');
+      }
+    });
   });
+
+  let dropdownMenu = document.querySelector('.personal-programs__openmenu');
+  if(dropdownMenu){
+    dropdownMenu.addEventListener('click', (e) => {
+      if(e.target && e.target.classList.contains('personal-programs__item')){
+        let checkedItem = e.target.textContent;
+        dropdownMenu.previousElementSibling.textContent = `${checkedItem}`;
+        dropdownMenu.classList.remove('personal-programs__openmenu_active');
+        let programsAll = document.querySelectorAll('.checked-programs');
+        checkProgramMenu(checkedItem, programsAll);
+      }
+    });
+  }
+  
+
+  function checkProgramMenu(programTitle, programBlock){
+    programBlock.forEach(item => {
+      item.classList.remove('active');
+      if(item.querySelector('h2').textContent.toLowerCase() == programTitle.toLowerCase()){
+        item.classList.add('active');
+      }
+    });
+  }
 
   //Оставить заявку
   const enrollPopup = document.querySelector('[data-set="enroll-overlay"]'),
@@ -373,6 +311,22 @@ window.addEventListener('DOMContentLoaded', () => {
     tabs[i].classList.add('tabsaside__item_active');
   }
         
+
+  //Увеличиваем изображения
+  const scaleWrapper = document.querySelectorAll('.scale-img-wrapper');
+
+  if(scaleWrapper){
+    scaleWrapper.forEach(item => {
+      item.addEventListener('click', (e) => {
+        if(e.target && e.target.classList.contains('for-scale-img')){
+          e.target.nextElementSibling.classList.add('active')
+        } else if(e.target && e.target.classList.contains('scale-img') || e.target.classList.contains('overlay-popup-scale')){
+          e.target.closest('div').classList.remove('active')
+        }
+      });
+    })
+  }
+
 //Поиск программы
 const searchInput = document.querySelector('.personal-programs__search');
 if(searchInput){
