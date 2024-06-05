@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">  
     <link rel="preload" href="fonts/Lato-Regular.woff2" as="font" type="font/woff2" crossorigin="">
     <link rel="stylesheet" href="css/style.min.css">
-    <title>Start</title>
+    <title>Lorem</title>
 </head>
 
 <body>
@@ -15,51 +15,38 @@
     <div class="container">
       <div class="header__inner">
         <a href="#" class="header__logo">
-          <img src="icons/logo.svg" alt="">
-          <!-- <svg class="header__svg">
-            <use xlink:href="icons/sprite.svg#logo"></use>
-          </svg> -->
+          <img src="icons/logo.svg" alt="Логотип">
         </a>
+        <button class="burger" aria-label="Меню">
+          <span></span>
+        </button>
         <nav class="header__nav">
           <ul class="header__list">
             <li class="header__item">
-              <a href="" class="header__link">
+              <a href="#" class="header__link">
                 Бизнес
               </a>
             </li>
             <li class="header__item">
-              <a href="" class="header__link">
+              <a href="#" class="header__link">
                 О нас
               </a>
             </li>
             <li class="header__item">
-              <a href="" class="header__link">
+              <a href="#" class="header__link">
                 Цены
               </a>
             </li>
             <li class="header__item">
-              <a href="" class="header__link">
+              <a href="#order" class="header__link">
                 Оформить заказ
               </a>
             </li>
           </ul>
         </nav>
       </div>
-    </div>
-    <!-- <img src="img/sprite.svg#coins1" class="svg-coins1-dims" alt="coins1"> -->
-    <!-- <svg>
-      <use xlink:href="icons/sprite.svg#search"></use>
-    </svg> -->
+    </div>    
   </header>
-  <!-- <picture class="picture object-fit-cover">
-    <source srcset="img/small2.webp, img/small2@2x.webp 2x" type="image/webp">
-    <img src="img/small2.png" srcset="img/small2.png, img/small2@2x.png 2x" alt="СЛЕСАРНЫЕ РАБОТЫ">
-  </picture> -->
-  <!-- <picture class="picture object-fit-cover">
-    <source media="(min-width: 577px)" srcset="img/main-bg.webp, img/main-bg@2x.webp 2x" type="image/webp">
-    <source media="(max-width: 576px)" srcset="img/main-bg-576.webp, img/main-bg-576@2x.webp 2x" type="image/webp">
-    <img src="img/main-bg.png" srcset="img/main-bg.png, img/main-bg@2x.png 2x" alt="CARON MOTORS">
-  </picture> -->
   <main>
 
     <section class="promo">
@@ -67,15 +54,15 @@
         <picture class="picture object-fit-cover">
           <source media="(min-width: 577px)" srcset="img/main-bg.webp, img/main-bg@2x.webp 2x" type="image/webp">
           <source media="(max-width: 576px)" srcset="img/main-bg-576.webp, img/main-bg-576@2x.webp 2x" type="image/webp">
-          <img src="img/main-bg.png" srcset="img/main-bg.png, img/main-bg@2x.png 2x" alt="CARON MOTORS">
+          <img class="parallax" src="img/main-bg.png" srcset="img/main-bg.png, img/main-bg@2x.png 2x" alt="Lorem ipsum">
         </picture>
       </div>
       <div class="container">
         <div class="promo__wrapper">
-          <h1 class="promo__title main-title">
-            <span class="main-title main-title_bright">Lorem ipsum</span> dolor sit amet consectetur <span class="main-title_bright">adipiscing</span>
+          <h1 class="promo__title main-title anim-promo">
+            <span class="main-title main-title_bright">Lorem ipsum</span> dolor sit <br> amet consectetur <span class="main-title_bright">adipiscing</span>
           </h1>
-          <div class="promo__descr">
+          <div class="promo__descr anim-promo">
             <p class="promo__subtitle">
               At vero eos et accusamus et iusto odio dignissimos ducimus!
             </p>
@@ -91,7 +78,7 @@
               </li>
             </ul>
           </div>
-          <div class="promo__btns">
+          <div class="promo__btns anim-promo">
             <button class="promo__btn main-btn main-btn_bright">
               заказать
             </button>
@@ -103,12 +90,12 @@
         
       </div>
     </section>
-    <section class="order">
+    <section class="order" id="order">
       <div class="order__bg section-bg">
         <picture class="picture object-fit-cover">
-          <source media="(min-width: 577px)" srcset="img/map.webp" type="image/webp">
-          <source media="(max-width: 576px)" srcset="img/map-576.webp" type="image/webp">
-          <img src="img/main-bg.png" srcset="img/map.png" alt="">
+          <source media="(min-width: 1025px)" srcset="img/map.webp" type="image/webp">
+          <source media="(max-width: 1024px)" srcset="img/map-1024.webp" type="image/webp">
+          <img src="img/main-bg.png" srcset="img/map.png" alt="Оформление заказа">
         </picture>
       </div>
       <div class="container">
@@ -121,7 +108,7 @@
         <div class="order__wrap mb-80">
           <div class="order__item order-item">
             <div class="order-item__icon">
-              <img src="icons/step1.svg" alt="">
+              <img src="icons/step1.svg" alt="Шаг 1">
             </div>
             <h3 class="order-item__title">
               Lorem ipsum dolor sit amet
@@ -129,94 +116,96 @@
           </div>
           <div class="order__item order-item">
             <div class="order-item__icon">
-              <img src="icons/step1.svg" alt="">
+              <img src="icons/step2.svg" alt="Шаг 2">
             </div>
             <h3 class="order-item__title">
-              Lorem ipsum dolor sit amet
+              Сonsecteturadipiscing elit
             </h3>
           </div>
           <div class="order__item order-item">
             <div class="order-item__icon">
-              <img src="icons/step1.svg" alt="">
+              <img src="icons/step3.svg" alt="Шаг 3">
             </div>
             <h3 class="order-item__title">
-              Lorem ipsum dolor sit amet
+              Sed do eiusmod tempor
             </h3>
           </div>
           <div class="order__item order-item">
             <div class="order-item__icon">
-              <img src="icons/step1.svg" alt="">
+              <img src="icons/step4.svg" alt="Шаг 4">
             </div>
             <h3 class="order-item__title">
-              Lorem ipsum dolor sit amet
+              Esse cillum dolore eu fugiat
             </h3>
           </div>
           <div class="order__item order-item">
             <div class="order-item__icon">
-              <img src="icons/step1.svg" alt="">
+              <img src="icons/step5.svg" alt="Шаг 5ы">
             </div>
             <h3 class="order-item__title">
-              Lorem ipsum dolor sit amet
+              Excepteur sint occaecat cupidatat non proident
             </h3>
           </div>
+          
         </div>
         <form class="order__form order-form">
           <div class="order-form__wrap">
-            <select name="type" id="type-select" class="sorder-form__step order-field">
-              <option value="Выберите тип системы">Выберите тип системы</option>
-              <option value="Sed ut perspiciatis">Sed ut perspiciatis</option>
-              <option value="Nemo enim ipsam">Nemo enim ipsam</option>
-              <option value="Et harum quidem">Et harum quidem</option>
-              <option value="Temporibus autem">Temporibus autem</option>
-              <option value="Itaque earum rerum">Itaque earum rerum</option>
-              <option value="Sed ut perspiciatis">Sed ut perspiciatis</option>
-              <option value="Nemo enim ipsam">Nemo enim ipsam</option>
-              <option value="Et harum quidem">Et harum quidem</option>
-              <option value="Temporibus autem">Temporibus autem</option>
-              <option value="Itaque earum rerum">Itaque earum rerum</option>
-            </select>
-            <input type="text" placeholder="Ваш e-mail" class="order-form__step order-field">
-            <input type="text" placeholder="Ваше имя" class="order-form__step order-field">
+            <div class="order-form__step select-row">
+              <select name="type" class="order-form__step order-field select">
+                <option value=""></option>
+                <option value="Sed ut perspiciatis">Sed ut perspiciatis</option>
+                <option value="Nemo enim ipsam">Nemo enim ipsam</option>
+                <option value="Et harum quidem">Et harum quidem</option>
+                <option value="Temporibus autem">Temporibus autem</option>
+                <option value="Itaque earum rerum">Itaque earum rerum</option>
+                <option value="Sed ut perspiciatis">Sed ut perspiciatis</option>
+                <option value="Nemo enim ipsam">Nemo enim ipsam</option>
+                <option value="Et harum quidem">Et harum quidem</option>
+                <option value="Temporibus autem">Temporibus autem</option>
+                <option value="Itaque earum rerum">Itaque earum rerum</option>
+              </select>
+              <span class="field-select">Выберите тип системы</span>
+            </div>
+            <input type="email" placeholder="Ваш e-mail" name="email" required class="order-form__step order-field">
+            <input type="text" placeholder="Ваше имя" name="name" required class="order-form__step order-field">
             <div class="order-form__step order-form__step_long">
               <div class="range">
-                <div class="range__name">
-                  Sed ut perspiciatis, unde omnis iste natus
+                <div class="range__top">
+                  <div class="range__name">
+                    Sed ut perspiciatis, unde omnis iste natus
+                  </div>
+                  <div class="range__num">
+                    75%
+                  </div>
                 </div>
-                <div class="range__num">
-                  75%
-                </div>
-                <input type="range" min="0" max="100" value="75" steps="1" id="range-input">
+                <input type="range" name="range" min="0" max="100" value="75" steps="1" id="range-input">
               </div>
             </div>
               
             <div id="file-input" class="order-form__step file-input">
-              <img class="file-input__icon" src="icons/upload.svg" alt="">
-              <span class="file-input__name">Прикрепить</span>
+              <img class="file-input__icon" src="icons/upload.svg" alt="Прикрепить файл">
+              <span class="file-input__name">Прикрепить файл</span>
             </div>
             <div class="form__picture"></div>
           </div>
           
-          <button class="order-form__btn main-btn main-btn_bright">
+          <button class="order-form__btn main-btn main-btn_bright send" aria-label="Отправить">
             отправить
           </button>
         </form>
       </div>
     </section>
   </main>
-
-  
-
-
   <footer class="footer">
     <div class="container">
       <div class="footer__wrapper">
         <div class="footer__copy">
-          © 2018 «LoremIpsum.net» Все права защищены.
+          © 2018 <span class="ttu">«LoremIpsum.net»</span> Все права защищены.
         </div>
         <div class="footer__wallets">
           <div class="wallet">
             <div class="wallet__icon">
-              <img src="icons/qiwi-wallet.svg" alt="">
+              <img src="icons/qiwi-wallet.svg" alt="Кошелек Qiwi">
             </div>
             <span class="wallet__name">
               Qiwi wallet
@@ -224,7 +213,7 @@
           </div>
           <div class="wallet">
             <div class="wallet__icon">
-              <img src="icons/yandex-wallet.svg" alt="">
+              <img src="icons/yandex-wallet.svg" alt="Кошелек Yandex">
             </div>
             <span class="wallet__name">
               Yandex Money
@@ -232,7 +221,7 @@
           </div>
           <div class="wallet">
             <div class="wallet__icon">
-              <img src="icons/web-wallet.svg" alt="">
+              <img src="icons/web-wallet.svg" alt="Кошелек Web">
             </div>
             <span class="wallet__name">
               Web Money
@@ -241,20 +230,17 @@
         </div>
         <div class="footer__links">
           <a href="mailto:info@ipsum228.com" class="footer__link">
-            <img src="icons/email.svg" alt="">
+            <img src="icons/email.svg" alt="Email">
             <span>info@ipsum228.com</span>
           </a>
           <a href="#" target="_blank" class="footer__link">
-            <img src="icons/vk.svg" alt="">
+            <img src="icons/vk.svg" alt="вконтактe">
             <span>Мы вконтакте</span>
           </a>
         </div>
       </div>
     </div>
   </footer>
-    
-
-
 <script src="js/main.min.js"> </script>
 
 </body>
